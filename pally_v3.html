@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Pally · Test de Personalidad</title>
+<style>
+:root{--navy:#1B3A5C;--teal:#2E7D8C;--gold:#C4972F;--cream:#F7F4EF;--white:#fff;--gray:#8A8A8A;--light:#EEE9E0;--A:#6B3FA0;--E:#2E7D8C;--N:#B03A2E;--C:#1E6B44;--O:#C4972F;
+--ts:#FF6B6B;--ta:#FFA07A;--tb:#FFD700;--tc:#ADFF2F;--td:#98FB98;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,'Segoe UI',sans-serif;background:linear-gradient(135deg,var(--cream) 0%,#EDE8DF 100%);min-height:100vh;color:var(--navy);}
+header{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(27,58,92,.3);}
+.logo{font-size:19px;font-weight:800;color:#fff;letter-spacing:.06em;}
+.logo span{display:inline-block;width:7px;height:7px;background:var(--gold);border-radius:50%;margin-left:3px;vertical-align:middle;}
+.nav-compat{font-size:12px;color:rgba(255,255,255,.55);cursor:pointer;border:1px solid rgba(255,255,255,.2);padding:5px 11px;border-radius:16px;}
+.nav-compat:hover{background:rgba(255,255,255,.1);color:#fff;}
+main{max-width:680px;margin:0 auto;padding:24px 14px 80px;}
+.card{background:#fff;border-radius:14px;padding:24px 20px;box-shadow:0 5px 28px rgba(27,58,92,.09);}
+.screen{display:none;}.screen.active{display:block;}
+.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--teal);text-transform:uppercase;margin-bottom:8px;font-weight:700;}
+.title{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px;line-height:1.2;}
+.subtitle{color:var(--gray);font-size:13px;line-height:1.6;margin-bottom:18px;}
+.name-input,.field-input{width:100%;padding:12px 14px;border:2px solid var(--light);border-radius:9px;font-size:15px;font-family:inherit;color:var(--navy);outline:none;transition:border-color .2s;margin-bottom:14px;}
+.name-input:focus,.field-input:focus{border-color:var(--teal);}
+.range-btn{width:100%;background:var(--cream);border:2px solid var(--light);border-radius:11px;padding:14px 16px;cursor:pointer;text-align:left;margin-bottom:9px;transition:all .2s;display:block;}
+.range-btn:hover,.range-btn:active{background:var(--navy);border-color:var(--navy);}
+.range-btn:hover .rl,.range-btn:active .rl{color:#fff;}
+.range-btn:hover .rd,.range-btn:active .rd{color:rgba(255,255,255,.6);}
+.rl{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:2px;transition:color .2s;}
+.rd{font-size:12px;color:var(--gray);transition:color .2s;}
+.note-box{background:var(--cream);border-left:3px solid var(--gold);border-radius:0 7px 7px 0;padding:11px 13px;font-size:12px;color:var(--gray);line-height:1.6;margin-top:12px;}
+/* Progress */
+.prog-wrap{margin-bottom:18px;}
+.prog-top{display:flex;justify-content:space-between;margin-bottom:5px;}
+.prog-lbl{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.07em;}
+.prog-pct{font-size:11px;color:var(--teal);font-weight:700;}
+.prog-track{height:4px;background:var(--light);border-radius:2px;}
+.prog-fill{height:4px;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:2px;transition:width .4s;}
+.q-ctx{font-size:10px;letter-spacing:.13em;color:var(--teal);text-transform:uppercase;font-weight:700;margin-bottom:7px;}
+.q-text{font-size:15px;font-weight:700;line-height:1.6;color:var(--navy);margin-bottom:18px;}
+.options{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+.opt{background:var(--cream);border:2px solid var(--light);border-radius:8px;padding:10px 13px;cursor:pointer;text-align:left;display:flex;align-items:flex-start;gap:9px;transition:all .15s;width:100%;}
+.opt:hover,.opt:active{border-color:var(--teal);background:#ebf5f7;}
+.opt.sel{background:var(--navy);border-color:var(--navy);}
+.opt-l{width:22px;height:22px;min-width:22px;border-radius:50%;border:2px solid var(--gray);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--gray);transition:all .15s;margin-top:1px;}
+.opt.sel .opt-l{background:var(--gold);border-color:var(--gold);color:#fff;}
+.opt-t{font-size:13px;line-height:1.45;color:var(--navy);transition:color .15s;}
+.opt.sel .opt-t{color:#fff;}
+.nav-row{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--light);}
+.btn-back{background:transparent;border:1.5px solid var(--light);border-radius:7px;padding:8px 13px;cursor:pointer;color:var(--gray);font-size:12px;font-family:inherit;}
+.btn-back:hover{border-color:var(--navy);color:var(--navy);}
+.btn-next{background:var(--navy);border:none;border-radius:7px;padding:8px 15px;cursor:pointer;color:#fff;font-size:12px;font-weight:600;font-family:inherit;}
+.btn-next:disabled{background:var(--light);color:var(--gray);cursor:default;}
+.btn-finish{background:var(--gold);border:none;border-radius:7px;padding:8px 15px;cursor:pointer;color:#fff;font-size:12px;font-weight:700;font-family:inherit;}
+.btn-finish:disabled{background:var(--light);color:var(--gray);cursor:default;}
+.dots{display:flex;gap:3px;flex-wrap:wrap;justify-content:center;flex:1;padding:0 8px;}
+.dot{height:6px;width:6px;border-radius:3px;cursor:pointer;transition:all .2s;background:var(--light);}
+.dot.ans{background:var(--teal);}
+.dot.cur{background:var(--navy);width:14px;}
+.finish-hint{text-align:center;color:var(--gray);font-size:11px;margin-top:8px;display:none;}
+/* Results */
+.dim-card{background:var(--cream);border-radius:9px;padding:12px 14px;margin-bottom:10px;}
+.dim-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
+.dim-name{font-weight:700;font-size:13px;}
+.dim-badge{font-size:10px;padding:2px 7px;border-radius:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-left:7px;}
+.dim-score{font-size:11px;color:var(--gray);font-weight:600;}
+.bar-track{height:5px;background:var(--light);border-radius:3px;margin-bottom:7px;}
+.bar-fill{height:5px;border-radius:3px;}
+.dim-extremes{display:flex;justify-content:space-between;font-size:10px;color:var(--gray);margin-bottom:8px;}
+.dim-desc{font-size:12px;line-height:1.6;color:var(--navy);padding-top:8px;border-top:1px solid var(--light);}
+.dim-why{font-size:11px;line-height:1.5;color:var(--gray);margin-top:5px;font-style:italic;}
+/* Vector box */
+.vector-box{background:var(--navy);border-radius:11px;padding:16px 18px;margin-top:18px;}
+.vb-title{font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:6px;}
+.vb-name{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:5px;}
+.vb-vector{font-size:12px;font-weight:700;color:#fff;font-family:'Courier New',monospace;letter-spacing:.05em;margin-bottom:12px;word-break:break-all;line-height:1.6;}
+.btn-copy{background:var(--gold);border:none;border-radius:7px;padding:9px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;font-family:inherit;width:100%;margin-bottom:7px;}
+.btn-wa{background:#25D366;border:none;border-radius:7px;padding:9px;cursor:pointer;color:#fff;font-size:13px;font-weight:600;font-family:inherit;width:100%;}
+.btn-interests{background:var(--teal);border:none;border-radius:7px;padding:10px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;font-family:inherit;width:100%;margin-top:10px;}
+.btn-restart{background:transparent;border:2px solid var(--light);border-radius:7px;padding:9px;cursor:pointer;color:var(--navy);font-size:12px;font-weight:600;font-family:inherit;width:100%;margin-top:8px;}
+/* INTERESTS */
+.interest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.int-btn{background:var(--cream);border:2px solid var(--light);border-radius:10px;padding:14px 8px;cursor:pointer;text-align:center;transition:all .2s;}
+.int-btn:hover{border-color:var(--teal);}
+.int-btn.sel{border-color:var(--teal);background:#e8f5f7;}
+.int-icon{font-size:28px;margin-bottom:5px;}
+.int-name{font-size:12px;font-weight:700;color:var(--navy);}
+.btn-primary{background:var(--navy);border:none;border-radius:9px;padding:12px;cursor:pointer;color:#fff;font-size:14px;font-weight:700;font-family:inherit;width:100%;margin-top:4px;}
+/* SUBINTERESTS */
+.sub-section{margin-bottom:20px;}
+.sub-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.sub-icon{font-size:22px;}
+.sub-title{font-size:15px;font-weight:800;color:var(--navy);}
+.sub-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.chip{background:var(--cream);border:2px solid var(--light);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--gray);cursor:pointer;transition:all .15s;}
+.chip:hover{border-color:var(--teal);color:var(--teal);}
+.chip.sel{background:var(--teal);border-color:var(--teal);color:#fff;}
+/* TIERLIST */
+.tierlist{margin-bottom:20px;}
+.tl-instructions{font-size:12px;color:var(--gray);margin-bottom:14px;line-height:1.5;}
+.tl-row{display:flex;align-items:stretch;margin-bottom:6px;border-radius:8px;overflow:hidden;min-height:52px;}
+.tl-label{width:44px;min-width:44px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff;}
+.tl-S .tl-label{background:var(--ts);}
+.tl-A .tl-label{background:var(--ta);}
+.tl-B .tl-label{background:var(--tb);color:#333;}
+.tl-C .tl-label{background:var(--tc);color:#333;}
+.tl-D .tl-label{background:var(--td);color:#333;}
+.tl-slots{flex:1;background:rgba(0,0,0,.04);display:flex;flex-wrap:wrap;gap:6px;padding:7px 8px;align-items:center;min-height:52px;}
+.tl-item{background:#fff;border-radius:7px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:5px;border:2px solid transparent;transition:all .15s;}
+.tl-item:hover{border-color:var(--teal);}
+.tl-item .ti-icon{font-size:16px;}
+.tl-pool{display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:var(--cream);border-radius:9px;margin-bottom:6px;}
+.tl-pool-item{background:#fff;border-radius:7px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;border:2px solid var(--light);}
+.tl-pool-item:hover{border-color:var(--teal);}
+.tl-hint{font-size:11px;color:var(--gray);text-align:center;margin-bottom:10px;}
+/* COMPAT */
+.compat-intro{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:16px;}
+.person-block{background:var(--cream);border-radius:9px;padding:14px;margin-bottom:10px;}
+.person-title{font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.filter-row{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap;}
+.filter-btn{flex:1;min-width:80px;padding:8px 6px;border:2px solid var(--light);border-radius:8px;background:var(--cream);cursor:pointer;font-size:11px;font-weight:700;font-family:inherit;color:var(--gray);text-align:center;transition:all .2s;}
+.filter-btn.sel{background:var(--navy);border-color:var(--navy);color:#fff;}
+.vtype-select{width:100%;padding:10px 12px;border:2px solid var(--light);border-radius:8px;font-size:13px;font-family:inherit;color:var(--navy);outline:none;background:#fff;margin-bottom:14px;}
+.btn-calc{width:100%;padding:12px;background:var(--navy);border:none;border-radius:9px;color:#fff;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;}
+/* COMPAT RESULT */
+.compat-score{text-align:center;padding:20px 0 14px;}
+.compat-pct{font-size:60px;font-weight:800;color:var(--navy);line-height:1;}
+.compat-label{font-size:13px;color:var(--gray);margin-top:5px;}
+.compat-section-title{font-size:12px;font-weight:700;color:var(--navy);margin:14px 0 8px;text-transform:uppercase;letter-spacing:.08em;}
+.compat-dim{display:flex;align-items:center;gap:8px;margin-bottom:7px;padding:7px 9px;background:var(--cream);border-radius:7px;}
+.cd-name{font-size:11px;font-weight:700;min-width:100px;}
+.cd-bar-wrap{flex:1;height:5px;background:var(--light);border-radius:3px;overflow:hidden;}
+.cd-bar{height:5px;border-radius:3px;}
+.cd-pct{font-size:11px;color:var(--gray);min-width:32px;text-align:right;}
+.int-compat{display:flex;align-items:center;gap:8px;margin-bottom:7px;padding:7px 9px;background:var(--cream);border-radius:7px;}
+.ic-icon{font-size:16px;}
+.ic-name{font-size:11px;font-weight:700;min-width:70px;}
+.ic-tiers{font-size:10px;color:var(--gray);flex:1;}
+.ic-pct{font-size:11px;color:var(--gray);min-width:32px;text-align:right;}
+/* PLANS */
+.plan-card{background:var(--cream);border-radius:9px;padding:12px 14px;margin-bottom:8px;border-left:3px solid var(--teal);}
+.plan-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.plan-reason{font-size:11px;color:var(--gray);line-height:1.5;}
+.compat-note{font-size:11px;color:var(--gray);line-height:1.6;margin-top:12px;padding:9px 11px;background:var(--cream);border-radius:8px;border-left:3px solid var(--gold);}
+.btn-new-compat{width:100%;padding:10px;background:transparent;border:2px solid var(--light);border-radius:9px;color:var(--navy);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:8px;}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 20px;border-radius:22px;font-size:12px;font-weight:600;font-family:inherit;box-shadow:0 5px 20px rgba(0,0,0,.2);z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+@media(max-width:480px){.card{padding:18px 14px;}.q-text{font-size:14px;}.dots{display:none;}.interest-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">pally<span></span></div>
+  <div class="nav-compat" id="nav-compat">⇄ Compatibilidad</div>
+</header>
+<main>
+
+<!-- START -->
+<div id="screen-start" class="screen active card">
+  <div class="eyebrow">Pally · Test de Personalidad</div>
+  <h1 class="title">¿Cómo te llamás?</h1>
+  <p class="subtitle">Tu nombre aparece en los resultados para compartirlos.</p>
+  <input class="name-input" id="name-input" type="text" placeholder="Tu nombre o apodo" maxlength="30" autocomplete="off"/>
+  <div class="eyebrow" style="margin-top:14px">Elegí tu rango de edad</div>
+  <button class="range-btn" id="btn-1835"><div class="rl">18 – 35 años</div><div class="rd">Facultad, primer trabajo, vida social intensa</div></button>
+  <button class="range-btn" id="btn-3649"><div class="rl">36 – 49 años</div><div class="rd">Carrera consolidada, vínculos adultos, crianza</div></button>
+  <button class="range-btn" id="btn-50"><div class="rl">50+ años</div><div class="rd">Nueva libertad, hijos grandes, redescubrimiento</div></button>
+  <div class="note-box"><strong style="color:var(--navy)">30 preguntas · ~10 min.</strong> Respondé lo que harías realmente.</div>
+</div>
+
+<!-- TEST -->
+<div id="screen-test" class="screen card">
+  <div class="prog-wrap">
+    <div class="prog-top"><span class="prog-lbl">Pregunta <span id="q-num">1</span> de 30</span><span class="prog-pct" id="q-pct">0%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+  <div class="q-ctx" id="q-ctx"></div>
+  <p class="q-text" id="q-text"></p>
+  <div class="options" id="q-opts"></div>
+  <div class="nav-row">
+    <button class="btn-back" id="btn-back">← Anterior</button>
+    <div class="dots" id="nav-dots"></div>
+    <button class="btn-next" id="btn-next" disabled>Siguiente →</button>
+  </div>
+  <p class="finish-hint" id="finish-hint">Respondé todas para ver resultados</p>
+</div>
+
+<!-- RESULTS -->
+<div id="screen-results" class="screen card">
+  <div class="eyebrow" id="res-range">Resultados</div>
+  <h2 class="title">Tu perfil de personalidad</h2>
+  <p class="subtitle">No hay un perfil mejor que otro.</p>
+  <div id="res-dims"></div>
+  <div class="vector-box">
+    <div class="vb-title">Tu resultado · para compartir</div>
+    <div class="vb-name" id="vb-name"></div>
+    <div class="vb-vector" id="vb-vector"></div>
+    <button class="btn-copy" id="btn-copy-result">Copiar resultado</button>
+    <button class="btn-wa" id="btn-wa">Compartir por WhatsApp</button>
+    <button class="btn-interests" id="btn-go-interests">Completar intereses →</button>
+  </div>
+  <button class="btn-restart" id="btn-restart">Hacer otro test</button>
+</div>
+
+<!-- INTERESTS SELECT -->
+<div id="screen-interests" class="screen card">
+  <div class="eyebrow">Paso 2 · Intereses</div>
+  <h2 class="title">¿Qué te interesa?</h2>
+  <p class="subtitle">Elegí los que quieras. Después los vas a rankear.</p>
+  <div class="interest-grid" id="interest-grid"></div>
+  <button class="btn-primary" id="btn-to-tierlist">Rankear mis intereses →</button>
+</div>
+
+<!-- TIERLIST -->
+<div id="screen-tierlist" class="screen card">
+  <div class="eyebrow">Paso 3 · Tierlist</div>
+  <h2 class="title">¿Qué tan importante es cada uno?</h2>
+  <p class="tl-instructions">Tocá un interés del pool y después tocá el tier donde querés ubicarlo. S = central en tu vida, D = ocasional.</p>
+  <div class="tl-pool" id="tl-pool"></div>
+  <div class="tl-hint">↑ Tocá un interés, luego tocá el tier ↓</div>
+  <div class="tierlist" id="tierlist"></div>
+  <button class="btn-primary" id="btn-to-subs">Elegir subintereses →</button>
+</div>
+
+<!-- SUBINTERESTS -->
+<div id="screen-subs" class="screen card">
+  <div class="eyebrow">Paso 4 · Detalle</div>
+  <h2 class="title">¿Qué dentro de cada interés?</h2>
+  <p class="subtitle">Elegí lo que más te representa en cada uno.</p>
+  <div id="subs-container"></div>
+  <button class="btn-primary" id="btn-finish-interests">Ver resultado completo →</button>
+</div>
+
+<!-- FULL RESULT -->
+<div id="screen-full-result" class="screen card">
+  <div class="eyebrow">Resultado completo</div>
+  <h2 class="title" id="full-name">Tu perfil</h2>
+  <p class="subtitle">Personalidad + intereses listos para compartir.</p>
+  <div id="full-dims"></div>
+  <div id="full-interests-summary" style="margin-top:16px"></div>
+  <div class="vector-box" style="margin-top:16px">
+    <div class="vb-title">Vector completo · copiá y compartí</div>
+    <div class="vb-vector" id="full-vector"></div>
+    <button class="btn-copy" id="btn-copy-full">Copiar todo</button>
+    <button class="btn-wa" id="btn-wa-full" style="margin-top:7px">Compartir por WhatsApp</button>
+  </div>
+  <button class="btn-restart" style="margin-top:8px" id="btn-restart2">Empezar de nuevo</button>
+</div>
+
+<!-- COMPAT -->
+<div id="screen-compat" class="screen card">
+  <div class="eyebrow">Compatibilidad</div>
+  <h2 class="title">¿Qué tan compatibles son?</h2>
+  <p class="compat-intro">Pegá el resultado completo de dos personas. Formato: <code style="font-size:11px">Nombre | A:2.7 E:3 N:3.7 C:2.8 O:4 | Música:S:Rock,Jazz | Gaming:A:RPG</code></p>
+  <div class="person-block">
+    <div class="person-title">Persona A</div>
+    <input class="field-input" id="input-a" placeholder="Pegá el resultado copiado" autocomplete="off"/>
+  </div>
+  <div class="person-block">
+    <div class="person-title">Persona B</div>
+    <input class="field-input" id="input-b" placeholder="Pegá el resultado copiado" autocomplete="off"/>
+  </div>
+  <div style="margin-bottom:10px">
+    <div class="eyebrow" style="margin-bottom:8px">Filtrar por</div>
+    <div class="filter-row">
+      <button class="filter-btn sel" data-filter="both">Test + Intereses</button>
+      <button class="filter-btn" data-filter="test">Solo test</button>
+      <button class="filter-btn" data-filter="interests">Solo intereses</button>
+    </div>
+  </div>
+  <div class="eyebrow" style="margin-bottom:6px">Tipo de vínculo</div>
+  <select class="vtype-select" id="vtype-select">
+    <option value="general">General — balance entre todo</option>
+    <option value="amistad">Amistad profunda</option>
+    <option value="actividades">Actividades compartidas</option>
+    <option value="social">Vida social activa</option>
+  </select>
+  <button class="btn-calc" id="btn-calc">Calcular compatibilidad</button>
+</div>
+
+<!-- COMPAT RESULT -->
+<div id="screen-compat-result" class="screen card">
+  <div class="eyebrow">Resultado</div>
+  <div class="compat-score">
+    <div class="compat-pct" id="compat-pct">—</div>
+    <div class="compat-label" id="compat-label"></div>
+  </div>
+  <div id="compat-personality-section"></div>
+  <div id="compat-interests-section"></div>
+  <div id="compat-plans-section"></div>
+  <div class="compat-note" id="compat-note"></div>
+  <button class="btn-new-compat" id="btn-new-compat">Calcular otra compatibilidad</button>
+  <button class="btn-restart" id="btn-back-home" style="margin-top:7px">Volver al inicio</button>
+</div>
+
+</main>
+<div class="toast" id="toast">¡Copiado!</div>
+
+<script>
+(function(){
+"use strict";
+
+// ── INTERESTS DATA ────────────────────────────────────
+var INTERESTS=[
+  {id:"musica",name:"Música",icon:"🎵",subs:["Pop / K-pop","Reggaetón / Trap","Rock clásico","Rock alternativo","Grunge","Indie / Post-rock","Metal / Punk","Electrónica / House / Techno","Lo-fi / Synthwave","Hip hop / Rap","R&B / Soul","Jazz / Blues","Clásica","Folk / Acústico","Tango / Folklore","Cumbia / Reggae","Música 80s / 90s","Experimental"]},
+  {id:"cine",name:"Cine y Series",icon:"🎬",subs:["Acción / Thriller","Terror","Sci-fi / Distopía","Drama / Romance","Comedia","Animación","Documental","Cine de autor / Indie","Fantasía / Aventura","Cine asiático","True crime","Series de época","Anime"]},
+  {id:"gaming",name:"Gaming",icon:"🎮",subs:["RPG / Action RPG","Shooter FPS / TPS","Battle royale","MOBA","Estrategia / RTS","Survival / Sandbox","Indie","Horror","Plataformas / Puzzle","Simulación","Deportes / Racing","Fighting","Visual novel / Narrativo","Roguelike","Cozy games","JRPG","Soulslike"]},
+  {id:"fitness",name:"Fitness",icon:"🏋️",subs:["Musculación / Gym","CrossFit","Calistenia","Running","Ciclismo","Natación","Yoga","Pilates","Functional / HIIT","Artes marciales","Deportes de aventura"]},
+  {id:"futbol",name:"Fútbol",icon:"⚽",subs:["Liga local","Champions League","Premier League","La Liga","Serie A","Ligue 1","Copa Libertadores","Selecciones / Mundiales","Fútbol femenino"]},
+  {id:"hockey",name:"Hockey",icon:"🏑",subs:["Club","Colegio / Universidad","Liga amateur","Selección","Con amigas informal"]}
+];
+
+var TIERS=["S","A","B","C","D"];
+var TIER_WEIGHTS={S:4,A:3,B:2,C:1,D:0.5};
+
+// ── WEIGHTS ───────────────────────────────────────────
+var WEIGHTS={
+  general:{A:0.2,E:0.2,N:0.2,C:0.2,O:0.2},
+  amistad:{A:0.35,E:0.1,N:0.2,C:0.15,O:0.2},
+  actividades:{A:0.1,E:0.2,N:0.1,C:0.3,O:0.3},
+  social:{A:0.15,E:0.4,N:0.15,C:0.1,O:0.2}
+};
+
+// ── DESCRIPTIONS ─────────────────────────────────────
+var DESC={
+  A:{label:"Amabilidad",color:"#6B3FA0",lo:"Asertivo/a",hi:"Empático/a",
+    desc:{low:"Sos directo/a y asertivo/a. Ponés tus intereses primero sin culpa.",mid:"Balanceás bien lo propio y lo ajeno. Sabés tanto cooperar como defender tu lugar.",high:"Priorizás genuinamente el bienestar de otros. Cedés para mantener la armonía."},
+    why:{low:"La asertividad te permite defender tus límites de manera directa.",mid:"Suficiente empatía para cooperar, suficiente asertividad para no ser explotado/a.",high:"La amabilidad alta sostiene redes sociales sólidas pero es vulnerable a desequilibrios."}},
+  E:{label:"Extraversión",color:"#2E7D8C",lo:"Introvertido/a",hi:"Extrovertido/a",
+    desc:{low:"El tiempo a solas te recarga. Preferís pocos vínculos pero profundos.",mid:"Flexible en lo social: disfrutás la compañía pero también valorás el tiempo propio.",high:"La interacción social te energiza. Buscás activamente el contacto con otros."},
+    why:{low:"La introversión es una respuesta neurológica diferente ante la estimulación.",mid:"La ambiversion es la distribución más común. Se adapta bien a distintos contextos.",high:"La extraversión está vinculada a mayor sensibilidad del sistema de recompensa social."}},
+  N:{label:"Neuroticismo",color:"#B03A2E",lo:"Estable",hi:"Alta sensibilidad",
+    desc:{low:"Tenés un sistema emocional estable. Procesás y seguís adelante sin que las cosas te persigan.",mid:"Respuesta emocional proporcionada: sentís lo necesario sin que se extienda de más.",high:"Sistema de alarma muy sensible. Las situaciones inciertas te afectan con más intensidad y por más tiempo."},
+    why:{low:"Umbral de activación alto para el sistema de alarma. Estrategia óptima en entornos predecibles.",mid:"Sistema calibrado: detecta problemas reales sin paralizarse.",high:"El neuroticismo alto detecta amenazas que otros ignoran. El costo es mayor sensibilidad al estrés."}},
+  C:{label:"Responsabilidad",color:"#1E6B44",lo:"Flexible / Impulsivo",hi:"Organizado / Confiable",
+    desc:{low:"Sos flexible y vivís en el presente. Te adaptás bien pero los compromisos sostenidos te cuestan.",mid:"Nivel funcional de autogestión: cumplís lo que importa sin obsesionarte con el orden.",high:"Organizado/a y confiable. Cumplís lo que comprometés y podés sostener esfuerzos largos."},
+    why:{low:"La flexibilidad es adaptativa en entornos impredecibles.",mid:"Suficiente organización para cumplir, suficiente flexibilidad para adaptarse.",high:"Predictor más robusto de éxito laboral. Vinculado a la función ejecutiva del prefrontal."}},
+  O:{label:"Apertura",color:"#C4972F",lo:"Prefiere lo conocido",hi:"Curioso/a",
+    desc:{low:"Preferís lo que ya conocés. Práctico/a y concreto/a en cómo te relacionás con el mundo.",mid:"Curiosidad selectiva: te abrís cuando hay razón concreta pero no buscás la novedad por sí misma.",high:"Orientación genuina hacia lo nuevo. Las ideas abstractas te generan energía."},
+    why:{low:"Orientar la inteligencia hacia lo probado es adaptativo en entornos estables.",mid:"Permite beneficiarse de lo nuevo sin inestabilidad constante.",high:"Correlaciona con creatividad y pensamiento divergente."}}
+};
+
+// ── PLANS LOGIC ───────────────────────────────────────
+function suggestPlans(intA,intB,resA,resB){
+  var plans=[];
+  var sharedInts=[];
+  INTERESTS.forEach(function(int){
+    var ia=intA[int.id],ib=intB[int.id];
+    if(ia&&ib){
+      sharedInts.push({id:int.id,name:int.name,icon:int.icon,
+        tierA:ia.tier,tierB:ib.tier,
+        minTier:TIER_WEIGHTS[ia.tier]<TIER_WEIGHTS[ib.tier]?ia.tier:ib.tier});
+    }
+  });
+  var eAvg=((resA.E||3)+(resB.E||3))/2;
+  var cAvg=((resA.C||3)+(resB.C||3))/2;
+
+  sharedInts.forEach(function(si){
+    if(si.id==='musica'){
+      if(eAvg>=3.5) plans.push({icon:"🎤",title:"Ir a un recital o festival",reason:"Ambos tienen Música en común y perfil social activo."});
+      else plans.push({icon:"🎧",title:"Escuchar música juntos y recomendar artistas",reason:"Ambos comparten Música. Ideal para un plan tranquilo y conversación."});
+    }
+    if(si.id==='cine'){
+      if(eAvg<3) plans.push({icon:"🍿",title:"Maratón de cine en casa",reason:"Perfil más íntimo y Cine en común. Plan ideal para conocerse mejor."});
+      else plans.push({icon:"🎭",title:"Ir al cine o a un ciclo de película",reason:"Cine en común con perfil social activo."});
+    }
+    if(si.id==='gaming'){
+      if(eAvg<3) plans.push({icon:"🕹️",title:"Sesión de gaming online o local",reason:"Gaming en común. Perfil más reservado — plan íntimo ideal."});
+      else plans.push({icon:"👾",title:"Gaming en grupo o torneo casual",reason:"Gaming en común con perfil social activo."});
+    }
+    if(si.id==='fitness'){
+      if(cAvg>=3.5) plans.push({icon:"🏃",title:"Entrenar juntos — running, gym o clase",reason:"Fitness en común y alto nivel de responsabilidad. Buena constancia."});
+      else plans.push({icon:"🧘",title:"Clase grupal o actividad física casual",reason:"Fitness en común. Plan sin presión de rendimiento."});
+    }
+    if(si.id==='futbol'){
+      if(eAvg>=3.5) plans.push({icon:"📺",title:"Ver un partido en un bar con ambiente",reason:"Fútbol en común y perfil social activo."});
+      else plans.push({icon:"🏟️",title:"Ver un partido en casa o ir a la cancha",reason:"Fútbol en común. El nivel de energía define el formato."});
+    }
+    if(si.id==='hockey'){
+      plans.push({icon:"🏑",title:"Ir a ver un partido de hockey o jugar juntos",reason:"Hockey en común. Comunidad muy activa y social."});
+    }
+  });
+
+  if(plans.length===0&&sharedInts.length===0){
+    plans.push({icon:"☕",title:"Café y charla",reason:"Sin intereses directamente compartidos, el test muestra afinidad en personalidad. El punto de encuentro es la conversación."});
+  }
+  return plans.slice(0,4);
+}
+
+// ── QUESTIONS (same as v2, abbreviated keys) ─────────
+var Q={"1835":[],"3649":[],"50":[]};
+// [Full questions data - same as pally_test_v2.html]
+Q["1835"]=[
+{c:"ACADÉMICO",t:"Están haciendo un TP grupal. Tus compañeros no responden, no aportan nada, y aparecen al final con excusas. ¿Qué hacés?",o:[["A","Hago todo yo y no digo nada, total ya termina","A:4"],["B","Hago todo yo pero cuando entregamos lo dejo en claro","A:3"],["C","Les aviso que si no aparecen entrego lo que hay","A:2"],["D","Espero hasta último momento a ver si reaccionan","A:1"]]},
+{c:"SOCIAL",t:"Venís de una semana agotadora. Estás en cero. Tu amigo te escribe para pedirte que lo escuches, tiene un problema. ¿Qué hacés?",o:[["A","Lo llamo igual, para eso están los amigos","A:5"],["B","Le escribo que esta noche no puedo bien pero mañana estoy","A:3"],["C","Le pregunto qué tan urgente es antes de decidir","A:2"],["D","Lo leo, le mando un audio corto y apago el teléfono","A:1"]]},
+{c:"ACADÉMICO",t:"Es el día anterior al examen. Alguien que casi nunca participó te escribe pidiéndote tus resúmenes de todo el cuatrimestre. ¿Qué hacés?",o:[["A","Los mando sin pensarlo","A:5"],["B","Los mando pero le aclaro que la próxima tendría que aportar más","A:3"],["C","Le digo que no los tengo ordenados","A:2"],["D","Le digo que no, que los tendría que haber hecho él","A:1"]]},
+{c:"SOCIAL",t:"Una persona de tu entorno te pide favores constantemente pero nunca aparece cuando vos necesitás algo. Ya pasó varias veces. ¿Qué hacés?",o:[["A","Se lo digo directamente, la situación no está bien","A:1"],["B","Empiezo a estar menos disponible sin decir nada","A:2"],["C","Sigo ayudando, no quiero generar conflicto","A:4"],["D","Lo hablo con alguien más antes de hacer algo","A:3"]]},
+{c:"SOCIAL",t:"Alguien que conocés te está contando algo que sabés que es falso. Te está mintiendo en la cara. ¿Cómo reaccionás?",o:[["A","Le digo directamente que eso no es así","A:1"],["B","Le hago una pregunta que lo lleve a contradecirse","A:2"],["C","Lo escucho, no digo nada, pero lo registro","A:3"],["D","Lo dejo pasar, no vale el conflicto","A:5"]]},
+{c:"SOCIAL",t:"Sabés algo que si lo decís te beneficia completamente a vos, pero va a afectar a todo tu entorno. Nadie sabe que vos tenés esa información. ¿Qué hacés?",o:[["A","Lo digo igual, es lo que corresponde","A:5"],["B","Evalúo cuánto afecta realmente antes de decidir","A:3"],["C","Lo guardo, no tengo por qué perjudicarme","A:1"],["D","Busco usarlo de manera que el impacto no quede tan expuesto","A:2"]]},
+{c:"SOCIAL",t:"Tu amigo se muda y te pide una mano. Es el mismo día que tenías planeado algo muy importante para vos hace semanas. ¿Qué hacés?",o:[["A","Cancelo lo mío y lo ayudo, los amigos primero","A:5"],["B","Lo ayudo la mitad del día y después me voy a lo mío","A:3"],["C","Le explico que ese día no puedo y le busco otra fecha","A:2"],["D","Le digo que no puedo, sin mucho detalle","A:1"]]},
+{c:"SOCIAL",t:"Estás en una cena con gente que recién conocés. Son todos extrovertidos, hablan entre ellos y no te incluyen mucho. ¿Qué hacés?",o:[["A","No tengo ningún problema en meterme a la conversación solo","E:5"],["B","Espero un momento donde pueda entrar naturalmente","E:3"],["C","Hablo con el que tengo al lado y armo mi propia conversación","E:4"],["D","Aguanto la noche y en algún momento me voy","E:1"]]},
+{c:"SOCIAL",t:"Estás en un boliche con tu amigo. En un momento te das cuenta que se fue con otro grupo sin avisarte. Estás solo. ¿Qué hacés?",o:[["A","Busco alguien con quien hablar, no necesito que me lleven de la mano","E:5"],["B","Le escribo para ver dónde está y me junto","E:3"],["C","Me quedo un rato pero si no vuelve me voy","E:2"],["D","Me genera bastante incomodidad estar solo ahí","E:1"]]},
+{c:"COTIDIANO",t:"Es sábado, no tenés ningún plan. Nadie te escribió. El día es completamente tuyo. ¿Cuál es tu reacción genuina?",o:[["A","Alivio total, estar solo en casa era lo que necesitaba","E:1"],["B","Lo disfruto un rato pero a la tarde ya quiero ver a alguien","E:3"],["C","Rápido organizo algo, el tiempo libre sin planes me inquieta","E:5"],["D","Lo aprovecho para avanzar en proyectos propios","E:2"]]},
+{c:"SOCIAL",t:"Llegás a una fiesta donde conocés a muy poca gente. ¿Qué hacés en los primeros cinco minutos?",o:[["A","Busco a alguien y arranco conversación sin problema","E:5"],["B","Me quedo cerca de quien conozco y espero que la noche avance","E:2"],["C","Agarro algo para tomar y busco un lugar cómodo donde estar","E:1"],["D","Espero un momento cómodo para entrar a alguna conversación","E:3"]]},
+{c:"SOCIAL",t:"Terminaron el examen. El grupo quiere salir a festejar. Vos estás agotado y lo único que querés es llegar a tu casa. ¿Qué hacés?",o:[["A","Voy igual, la energía aparece cuando estás con gente","E:5"],["B","Voy un rato y después me escapo","E:3"],["C","Les digo que estoy destruido y me voy a casa","E:1"],["D","Finjo que tengo algo y me voy sin dar explicaciones","E:2"]]},
+{c:"ACADÉMICO",t:"Salís del examen y de camino a casa empezás a pensar si usaste la fórmula correcta. No podés saberlo hasta que salga la nota. ¿Qué pasa con vos en ese momento?",o:[["A","Lo pienso un momento y lo suelto, ya está hecho","N:1"],["B","Me queda dando vueltas un rato pero lo dejo ir","N:2"],["C","Me paso buena parte del día pensando en eso","N:4"],["D","Lo analizo en loop, le pregunto a compañeros para confirmar","N:5"]]},
+{c:"LABORAL",t:"Tuviste una entrevista laboral que te importa. Ya pasaron varios días y no te respondieron. ¿Cómo lo manejás?",o:[["A","Lo dejo correr, si es para mí va a llegar","N:1"],["B","Lo tengo presente pero no me consume","N:2"],["C","Reviso el mail con más frecuencia de lo normal","N:4"],["D","Me cuesta pensar en otra cosa hasta que llegue la respuesta","N:5"]]},
+{c:"ACADÉMICO",t:"Estás exponiendo en la facultad. En un momento algunas personas del fondo empiezan a reírse entre ellas. No sabés si es por lo que decís o por otra cosa. ¿Qué pasa con vos?",o:[["A","Sigo sin prestarle atención, probablemente es otra cosa","N:1"],["B","Lo noto pero no lo dejo afectar mi exposición","N:2"],["C","Me desconcentro y me quedo pensando en qué habrá pasado","N:4"],["D","Me afecta directamente y se nota en cómo continúo","N:5"]]},
+{c:"SOCIAL",t:"Le escribiste a alguien para hacer algo y te dijo que no podía. Poco después lo ves activo en redes. Claramente podía. ¿Qué hacés?",o:[["A","Lo dejo pasar, habrá tenido sus razones","N:1"],["B","Lo noto, no digo nada, pero si se repite ahí sí actúo","N:2"],["C","Me quedo pensando en por qué no quiso y busco explicaciones","N:4"],["D","Me molesta bastante, le doy vueltas un buen rato","N:5"]]},
+{c:"SOCIAL",t:"Hay una persona en tu entorno con quien, de manera recurrente, las cosas terminan mal. No es una vez. Es un patrón. ¿Qué hacés?",o:[["A","Lo acepto y tomo distancia sin darle más vueltas","N:1"],["B","Lo noto y lo proceso pero no me obsesiono","N:2"],["C","Le doy vueltas constantemente tratando de entender qué pasa","N:4"],["D","Me cuesta soltarlo, sigo pensando en si soy yo o es ella","N:5"]]},
+{c:"URBANO",t:"Estás en el auto de alguien. Querés poner música, la persona lo evita sutilmente. Insistís. Finalmente te dice que no, con un tono que no esperabas. ¿Cómo lo procesás?",o:[["A","Lo dejo pasar, no era para tanto","N:1"],["B","Me molesta un momento pero lo suelto rápido","N:2"],["C","Me quedo callado pero me quedó el malestar","N:4"],["D","No digo nada en el momento pero después lo suelto todo","N:5"]]},
+{c:"COTIDIANO",t:"Ves una promo de una prenda que te encanta. El problema es que tenés justo para llegar a fin de mes. ¿La comprás?",o:[["A","No la compro, no es el momento","C:5"],["B","Reviso si puedo ajustar algo para cubrirla","C:3"],["C","La compro, algo voy a resolver","C:2"],["D","La compro sin pensarlo dos veces","C:1"]]},
+{c:"COTIDIANO",t:"Venís de días muy agotadores. Llegás a casa, querés desenchufarte y se te antoja pedir algo rico que no entra en tu dieta. Ya tuviste permitidos esta semana. ¿Qué hacés?",o:[["A","No lo pido, el objetivo importa más que el antojo","C:5"],["B","Pido algo liviano como punto medio","C:3"],["C","Lo pido, me lo merezco después de estos días","C:2"],["D","Lo pido, lo disfruto, y después me quedo culpándome","C:1"]]},
+{c:"ACADÉMICO",t:"Hay un informe grupal. Vos avanzaste, tus compañeros no. Si esperás puede quedar incompleto. Si lo entregás como está no refleja el trabajo del grupo. ¿Qué hacés?",o:[["A","Lo entrego con lo que hay, no es mi problema si no aportaron","C:5"],["B","Les doy una última oportunidad con fecha límite clara","C:4"],["C","Lo completo yo solo y no digo nada","C:3"],["D","Espero y entrego lo que sea para no generar conflicto","C:1"]]},
+{c:"ACADÉMICO",t:"Tenés un examen importante en diez días. Nadie te controla. El tiempo es completamente tuyo. ¿Cómo lo encarás?",o:[["A","Arranco el primer día y distribuyo el contenido","C:5"],["B","Los primeros días los uso para organizarme y arranco bien","C:4"],["C","Arranco cuando siento que ya no puedo dejarlo más","C:2"],["D","Los últimos dos días a full, siempre me resultó","C:1"]]},
+{c:"SOCIAL",t:"Quedaste con alguien que recién conocés para tomar algo. Primera vez que salen. Son las 22:30 y todavía no llegó. Te dice que está yendo. ¿Qué hacés?",o:[["A","Le digo que para mí la puntualidad importa, sin rodeos","C:5"],["B","Le digo que no hay drama pero que la próxima me avisa antes","C:4"],["C","Lo espero esta vez pero internamente ya lo catalogué","C:3"],["D","Lo espero sin decir nada, recién nos conocemos","C:1"]]},
+{c:"LABORAL",t:"Tu jefe o profesor te encomienda algo para la semana que viene. El mismo día que tenías que arrancar surge un plan que esperabas hace meses y que no se va a repetir. ¿Qué hacés?",o:[["A","Arranco el trabajo igual y después me uno al plan","C:5"],["B","Voy al plan pero esa noche avanzo algo","C:3"],["C","Voy al plan y lo dejo para después, tengo tiempo","C:2"],["D","Voy al plan y no pienso en el trabajo hasta que ya no queda otra","C:1"]]},
+{c:"SOCIAL",t:"Estás en una juntada y alguien empieza a hablar de los tecnicismos detrás de una época musical que no conocés. Se le nota la pasión. ¿Qué pasa con vos?",o:[["A","Me engancho aunque no entienda todo, hago preguntas","O:5"],["B","Escucho con atención a ver si en algún punto me entra","O:4"],["C","Finjo que sigo pero mentalmente me fui","O:2"],["D","Espero a que cambie el tema","O:1"]]},
+{c:"CULTURAL",t:"Un amigo te lleva a una charla o exposición sobre algo que a priori no te interesaba para nada. Estás ahí. ¿Qué pasa?",o:[["A","Termino encontrando algo que me interesa genuinamente","O:5"],["B","Lo recorro con respeto pero no me dice mucho","O:3"],["C","Estoy pensando en cuándo terminamos","O:2"],["D","Saco una foto para el story y listo","O:1"]]},
+{c:"SOCIAL",t:"Estás hablando de algo que te importa mucho con un grupo. A mitad de la conversación te das cuenta que están desconectados. ¿Qué hacés?",o:[["A","Sigo igual, si les interesa que pregunten","O:5"],["B","Lo reformulo de manera más simple para que entre todo el mundo","O:4"],["C","Cambio de tema, no tiene sentido si no hay interés","O:2"],["D","Me callo y espero que alguien tome la conversación","O:1"]]},
+{c:"SOCIAL",t:"Están en grupo y surge la necesidad de que alguien hable frente a un grupo más grande que no conocen. Nadie se anima, todos se miran entre sí. ¿Qué hacés?",o:[["A","Me levanto y lo hago yo","E:5"],["B","Me ofrezco si alguien me pide que lo haga","E:4"],["C","Espero a que alguien más tome la iniciativa","E:2"],["D","No me sale, prefiero que lo haga otro","E:1"]]},
+{c:"SOCIAL",t:"Estás con un grupo de amigos y alguien menciona una película, libro o artista que nunca escuchaste pero claramente le apasiona. ¿Qué hacés?",o:[["A","Le pregunto más, me genera genuina curiosidad","O:5"],["B","Lo escucho con interés pero no profundizo","O:3"],["C","Asiento pero no me engancha para nada","O:2"],["D","Espero a que cambie el tema","O:1"]]},
+{c:"SOCIAL",t:"Estás en una mesa y se instala una conversación sobre algo que no te interesa, e incluso podrías no estar de acuerdo. ¿Qué hacés?",o:[["A","Participo igual, algo nuevo siempre puede aparecer","O:5"],["B","Escucho en silencio aunque no aporte nada","O:3"],["C","Cambio el tema cuando puedo hacerlo sin que quede mal","O:2"],["D","Digo directamente que no es algo que me llame la atención","O:1"]]}];
+
+Q["3649"]=[
+{c:"SOCIAL",t:"Tuviste una pelea fuerte con un amigo hace unos años. Con el tiempo reconociste que el error fue tuyo. Nunca lo hablaron. ¿Qué hacés?",o:[["A","Le escribo y lo reconozco, aunque sea incómodo","A:5"],["B","Espero a que surja un momento natural para mencionarlo","A:3"],["C","Ya pasó mucho tiempo, prefiero dejarlo así","A:2"],["D","Espero a que él dé el primer paso","A:1"]]},
+{c:"FAMILIAR",t:"Si tuvieras un hijo pequeño, llegás a casa destruido después de una semana muy pesada. Era tu noche de cuidarlo pero tu pareja se ofrece a cubrirte. ¿Qué hacés?",o:[["A","Me quedo igual, es mi responsabilidad","A:5"],["B","Le acepto una parte de la noche y después me hago cargo","A:3"],["C","Le acepto el favor con algo de culpa","A:2"],["D","Acepto sin dudar, lo necesito","A:1"]]},
+{c:"SOCIAL",t:"Tus amigos cercanos empezaron a tener hijos. Los planes cambiaron, la disponibilidad también. La amistad se fue achicando sola. ¿Qué hacés?",o:[["A","Me adapto a sus tiempos, la amistad vale el esfuerzo","A:5"],["B","Intento mantenerla pero reconozco que cambió","A:3"],["C","Los veo menos y fui construyendo otros vínculos","A:2"],["D","Lo acepto, es la etapa de vida de cada uno","A:1"]]},
+{c:"COTIDIANO",t:"Tu roomate deja el baño sucio de manera recurrente. Ya pasó varias veces. ¿Qué hacés?",o:[["A","Se lo digo directamente, no puede seguir así","A:1"],["B","Se lo menciono de manera sutil esperando que entienda","A:2"],["C","Lo limpio yo y no digo nada para evitar el conflicto","A:4"],["D","Lo limpio yo y acumulo el malestar sin decir nada","A:5"]]},
+{c:"SOCIAL",t:"Un amigo cercano está en un momento muy bueno de su vida justo cuando vos estás en uno difícil. Lo ves avanzando. ¿Cómo lo vivís?",o:[["A","Me alegra genuinamente, su momento no cambia el mío","A:5"],["B","Me alegra pero a veces me cuesta no comparar","A:3"],["C","Lo evito un poco, no estoy en el mejor momento para celebrar ajeno","A:2"],["D","Me genera incomodidad que intento ignorar","A:1"]]},
+{c:"SOCIAL",t:"Venís de una semana agotadora. Estás en cero. Tu amigo te escribe para pedirte que lo escuches, tiene un problema. ¿Qué hacés?",o:[["A","Lo llamo igual, para eso están los amigos","A:5"],["B","Le escribo que esta noche no puedo bien pero mañana estoy","A:3"],["C","Le pregunto qué tan urgente es antes de decidir","A:2"],["D","Lo leo, le mando un audio corto y apago el teléfono","A:1"]]},
+{c:"SOCIAL",t:"Sabés algo que si lo decís te beneficia completamente a vos, pero va a afectar a todo tu entorno cercano. Nadie sabe que vos tenés esa información. ¿Qué hacés?",o:[["A","Lo digo igual, es lo que corresponde","A:5"],["B","Evalúo cuánto afecta realmente antes de decidir","A:3"],["C","Lo guardo, no tengo por qué perjudicarme","A:1"],["D","Busco usarlo de manera que el impacto no quede tan expuesto","A:2"]]},
+{c:"COTIDIANO",t:"Es viernes a la noche. Tenés la opción de salir con gente o quedarte en casa. La semana fue larga. ¿Qué querés hacer genuinamente?",o:[["A","Salir, la semana larga se cura con buena compañía","E:5"],["B","Salir un rato pero con hora de corte clara","E:3"],["C","Quedarme, lo necesito genuinamente","E:1"],["D","Ver cómo me siento a las 9 y decidir","E:2"]]},
+{c:"LABORAL",t:"Entendés que para crecer en tu trabajo necesitás hacer contactos. No es algo que te salga natural. Hay un evento de networking la semana que viene. ¿Qué hacés?",o:[["A","Voy y lo disfruto, siempre aparece algo bueno","E:5"],["B","Voy y lo enfrento aunque no sea lo mío","E:4"],["C","Voy pero me quedo cerca de quien conozco","E:2"],["D","No voy, busco otra manera de hacer contactos","E:1"]]},
+{c:"SOCIAL",t:"Llegás a un evento social donde conocés a muy poca gente. ¿Qué hacés en los primeros cinco minutos?",o:[["A","Busco a alguien y arranco conversación sin problema","E:5"],["B","Espero un momento cómodo para entrar a alguna conversación","E:3"],["C","Me quedo cerca de quien conozco y desde ahí voy viendo","E:2"],["D","Agarro algo para tomar y espero que alguien se acerque","E:1"]]},
+{c:"LABORAL",t:"Tenés una semana con mucho trabajo por delante. Un colega te propone tomar algo después de la oficina para descomprimir. No tenés ganas pero tampoco estás destruido. ¿Qué hacés?",o:[["A","Voy, salir me ayuda a cortar con el día","E:5"],["B","Voy un rato y después me voy","E:3"],["C","Le digo que esta vez no, pero propongo otro día","E:2"],["D","Le digo que no, necesito ese tiempo para mí","E:1"]]},
+{c:"SOCIAL",t:"Están en grupo y surge la necesidad de que alguien hable frente a un grupo más grande que no conocen. Nadie se anima, todos se miran entre sí. ¿Qué hacés?",o:[["A","Me levanto y lo hago yo","E:5"],["B","Me ofrezco si alguien me pide que lo haga","E:4"],["C","Espero a que alguien más tome la iniciativa","E:2"],["D","No me sale, prefiero que lo haga otro","E:1"]]},
+{c:"VIVIENDA",t:"El dueño de tu departamento te avisa que va a vender y tenés pocas semanas para dejar la propiedad. No lo esperabas. ¿Cómo reaccionás?",o:[["A","Me pongo en modo solución inmediato, arranco a buscar al día siguiente","N:1"],["B","El primer día me golpea fuerte pero después arranco","N:2"],["C","Me paralizo unos días antes de poder hacer algo","N:4"],["D","Me cuesta salir del loop de pensar en el problema antes de actuar","N:5"]]},
+{c:"FINANCIERO",t:"Hiciste los números y no llegás a fin de mes. No es la primera vez pero esta vez es más ajustado. ¿Cómo reaccionás?",o:[["A","Me siento a ver qué puedo ajustar y armo un plan","N:1"],["B","Lo voy manejando día a día sin armarlo del todo","N:2"],["C","Me genera ansiedad real y me cuesta pensar en otra cosa","N:4"],["D","Me paraliza bastante antes de poder hacer algo concreto","N:5"]]},
+{c:"LABORAL",t:"Llevás tres años en el mismo puesto. Ves que personas que entraron después que vos ya crecieron. Nadie te lo dice, lo ves. ¿Qué hacés?",o:[["A","Lo hablo directamente con quien corresponde","N:1"],["B","Lo proceso y empiezo a explorar opciones en silencio","N:2"],["C","Me quedo dándole vueltas sin saber bien qué hacer","N:4"],["D","Me cuesta soltarlo, sigo pensando en si soy yo o es el sistema","N:5"]]},
+{c:"LABORAL",t:"Recibiste feedback de tu jefe que no esperabas. No fue elogioso. Lo sentiste injusto. ¿Cómo lo procesás?",o:[["A","Lo hablo con él, necesito entender en qué se basa","N:1"],["B","Lo proceso internamente y veo si tiene algún punto válido","N:2"],["C","Me queda dando vueltas bastante tiempo","N:4"],["D","Me afecta prolongadamente, lo pienso días después","N:5"]]},
+{c:"SOCIAL",t:"Le escribiste a alguien para hacer algo y te dijo que no podía. Poco después lo ves activo en redes. Claramente podía. ¿Qué hacés?",o:[["A","Lo dejo pasar, habrá tenido sus razones","N:1"],["B","Lo noto, no digo nada, pero si se repite ahí sí actúo","N:2"],["C","Me quedo pensando en por qué no quiso","N:4"],["D","Me molesta bastante, le doy vueltas un buen rato","N:5"]]},
+{c:"URBANO",t:"Estás en el auto de alguien. Querés poner música, la persona lo evita sutilmente. Insistís. Finalmente te dice que no, con un tono que no esperabas. ¿Cómo lo procesás?",o:[["A","Lo dejo pasar, no era para tanto","N:1"],["B","Me molesta un momento pero lo suelto rápido","N:2"],["C","Me quedo callado pero me quedó el malestar","N:4"],["D","No digo nada en el momento pero después lo suelto todo","N:5"]]},
+{c:"COTIDIANO",t:"En el pasado tuviste un gasto importante que te dejó mal parado. Aprendiste a ahorrar con esfuerzo. Ahora surgió la oportunidad de ir a un lugar que querés hace años, pero implica usar buena parte de lo que juntaste. ¿Qué hacés?",o:[["A","Lo dejo pasar, aprendí la lección a las malas","C:5"],["B","Analizo si puedo hacerlo sin quedar expuesto financieramente","C:4"],["C","Lo postergo hasta estar más seguro económicamente","C:3"],["D","Lo hago, las oportunidades así no se repiten","C:1"]]},
+{c:"LABORAL",t:"Un compañero te dijo que terminó su parte del trabajo. Confiaste. Al final del día viste que estaba todo mal y él ya se fue. Ahora tenés que arreglarlo vos. ¿Qué hacés?",o:[["A","Lo arreglo esa noche y mañana se lo planteo directamente","C:5"],["B","Le escribo esa noche para que sepa lo que pasó","C:4"],["C","Lo dejo para mañana y primero hablo con él","C:3"],["D","Lo dejo para mañana, ya fue","C:1"]]},
+{c:"SOCIAL",t:"Quedaste con alguien que recién conocés. Primera vez que salen. Son las 22:30 y todavía no llegó. Te dice que está yendo. ¿Qué hacés?",o:[["A","Le digo que para mí la puntualidad importa, sin rodeos","C:5"],["B","Le digo que no hay drama pero que la próxima me avisa antes","C:4"],["C","Lo espero esta vez pero internamente ya lo catalogué","C:3"],["D","Lo espero sin decir nada, recién nos conocemos","C:1"]]},
+{c:"COTIDIANO",t:"Tenés un proyecto personal que querés encarar hace tiempo. Por fin aparece una semana con espacio real. Nadie te controla. ¿Qué pasa?",o:[["A","Arranco el primer día y avanzo de manera sostenida","C:5"],["B","Los primeros días los uso para organizarme y arranco bien","C:4"],["C","Arranco cuando siento que ya no puedo dejarlo más","C:2"],["D","Termina la semana y no avancé tanto como esperaba","C:1"]]},
+{c:"COTIDIANO",t:"Venís de días muy agotadores. Llegás a casa, querés desenchufarte y se te antoja pedir algo rico que no entra en tu dieta. Ya tuviste permitidos esta semana. ¿Qué hacés?",o:[["A","No lo pido, el objetivo importa más que el antojo","C:5"],["B","Pido algo liviano como punto medio","C:3"],["C","Lo pido, me lo merezco después de estos días","C:2"],["D","Lo pido, lo disfruto, y después me quedo culpándome","C:1"]]},
+{c:"FAMILIAR",t:"Si tuvieras hijos, tu hijo lleva semanas hablando de unas zapatillas que quiere. Son caras pero no imposibles. Este mes el presupuesto está ajustado y ese dinero lo tenías reservado para algo tuyo que también importa. ¿Qué hacés?",o:[["A","Le explico que este mes no se puede y buscamos otra fecha","C:5"],["B","Busco una alternativa similar más barata","C:4"],["C","Las compro y postergo lo mío, algo voy a resolver","C:3"],["D","Las compro aunque signifique quedarme sin lo mío","C:1"]]},
+{c:"SOCIAL",t:"Estás en una juntada y alguien empieza a hablar de los tecnicismos detrás de una época musical que no conocés. Se le nota la pasión. ¿Qué pasa con vos?",o:[["A","Me engancho aunque no entienda todo, hago preguntas","O:5"],["B","Escucho con atención a ver si en algún punto me entra","O:4"],["C","Finjo que sigo pero mentalmente me fui","O:2"],["D","Espero a que cambie el tema","O:1"]]},
+{c:"CULTURAL",t:"Un amigo te lleva a una charla o exposición sobre algo que a priori no te interesaba para nada. Estás ahí. ¿Qué pasa?",o:[["A","Termino encontrando algo que me interesa genuinamente","O:5"],["B","Lo recorro con respeto pero no me dice mucho","O:3"],["C","Estoy pensando en cuándo terminamos","O:2"],["D","Saco una foto para el story y listo","O:1"]]},
+{c:"LABORAL",t:"En una reunión de trabajo alguien propone resolver algo de una manera que nunca se hizo así. Vos tenés una forma que ya probaste y funciona. ¿Qué pensás?",o:[["A","Me interesa, puede ser mejor que lo que ya hacemos","O:5"],["B","Lo escucho y propongo probar ambas maneras","O:4"],["C","Prefiero lo que ya funciona, no tiene sentido arriesgar","O:2"],["D","Lo dejo pasar, no es mi decisión","O:1"]]},
+{c:"SOCIAL",t:"Alguien con quien casi no coincidís en nada te dice algo sobre un tema que tenías muy claro. El argumento tiene sentido. ¿Cómo lo procesás?",o:[["A","Lo reconozco, buen argumento es buen argumento venga de quien venga","O:5"],["B","Lo considero pero me toma tiempo aceptarlo","O:4"],["C","Lo escucho pero internamente lo pongo en duda por quién lo dice","O:2"],["D","No lo termino de tomar en serio","O:1"]]},
+{c:"LABORAL",t:"Pedís un aumento de sueldo. Tu jefe te dice que el presupuesto está cerrado. Vos sabés que no es verdad. ¿Qué hacés en ese momento?",o:[["A","Le digo que entiendo, pero que sé que el presupuesto no está cerrado","E:5"],["B","Le pregunto para cuándo podría revisarse","E:4"],["C","Acepto la respuesta y lo planteo en otro momento","E:2"],["D","Acepto la respuesta y me voy","E:1"]]},
+{c:"SOCIAL",t:"Estás en una mesa y se instala una conversación sobre algo que no te interesa, e incluso podrías no estar de acuerdo. ¿Qué hacés?",o:[["A","Participo igual, algo nuevo siempre puede aparecer","O:5"],["B","Escucho en silencio aunque no aporte nada","O:3"],["C","Cambio el tema cuando puedo hacerlo sin que quede mal","O:2"],["D","Digo directamente que no es algo que me llame la atención","O:1"]]}];
+
+Q["50"]=[
+{c:"FAMILIAR",t:"Tu hijo adolescente llega tarde a casa sin avisar. No es la primera vez. ¿Cómo lo manejás?",o:[["A","Lo hablo con calma pero con firmeza, tiene que entender el límite","A:3"],["B","Le digo lo que pienso en el momento, sin filtro","A:1"],["C","Espero a que se calme la situación y después lo hablo","A:4"],["D","Lo dejo pasar, ya sé cómo es y no quiero pelear","A:5"]]},
+{c:"FAMILIAR",t:"Tu hijo adulto toma una decisión importante con la que no estás de acuerdo. No te pidió opinión. ¿Qué hacés?",o:[["A","Le digo lo que pienso igual, es mi hijo y me importa","A:2"],["B","Espero a que me pregunte para decirlo","A:3"],["C","Se lo menciono una vez y respeto lo que decida","A:4"],["D","No digo nada, ya es adulto y es su vida","A:5"]]},
+{c:"FAMILIAR",t:"Hay una discusión familiar importante. Las tensiones están a flor de piel. ¿Cuál es tu rol más frecuente?",o:[["A","Tomo las riendas, propongo cómo resolverlo y lo conduzco","A:2"],["B","Escucho a todos, busco el punto medio y suavizo las tensiones","A:4"],["C","Digo lo que pienso sin rodeos aunque eso encienda más el fuego","A:1"],["D","Cedo en lo que puedo para que la cosa no escale, aunque no esté de acuerdo","A:5"]]},
+{c:"LABORAL",t:"Un compañero está en un momento personal muy difícil. Su parte del trabajo está sin hacer y vos lo cubrís hace semanas sin que nadie te lo pidiera. ¿Qué hacés?",o:[["A","Sigo cubriendo, está en un mal momento y me importa ayudarlo","A:5"],["B","Lo sigo cubriendo pero se lo planteo a quien corresponde","A:3"],["C","Le digo directamente que no puedo seguir así, con respeto","A:2"],["D","Paro de cubrir sin decir nada, que el problema se haga visible solo","A:1"]]},
+{c:"COTIDIANO",t:"Un familiar cercano te pide un favor grande que te va a costar tiempo y energía real. Ya venís de una semana cargada. ¿Qué hacés?",o:[["A","Lo ayudo igual, la familia es la familia","A:5"],["B","Le soy honesto sobre el momento pero trato de ayudar igual","A:3"],["C","Le explico que ahora no puedo y busco otro momento","A:2"],["D","Le digo que no puedo, sin mucho detalle","A:1"]]},
+{c:"SOCIAL",t:"Alguien de tu entorno dice algo en una reunión familiar o social que te parece injusto o equivocado. ¿Qué hacés?",o:[["A","Lo señalo en el momento, aunque genere incomodidad","A:1"],["B","Lo menciono después en privado con esa persona","A:3"],["C","Lo dejo pasar, aprendí a elegir las batallas","A:4"],["D","Lo dejo pasar, no quiero ser el que complica todo","A:5"]]},
+{c:"FAMILIAR",t:"Hay un conflicto entre dos personas cercanas y los dos te buscan para que tomes partido. ¿Qué hacés?",o:[["A","Me mantengo neutral y trato de que se entiendan entre ellos","A:4"],["B","Digo lo que pienso aunque eso signifique quedar mal con uno","A:1"],["C","Escucho a los dos pero evito dar mi opinión para no empeorar las cosas","A:5"],["D","Le digo a cada uno lo que creo en privado, sin meterme en el medio","A:3"]]},
+{c:"COTIDIANO",t:"Tus hijos ya crecieron y de repente tenés fines de semana libres que antes no existían. ¿Cómo los vivís?",o:[["A","Los lleno de planes, necesito movimiento y gente","E:5"],["B","Disfruto el tiempo libre pero busco ver a alguien en algún momento","E:3"],["C","Los aprovecho para hacer cosas propias que había postergado","E:2"],["D","Los disfruto en soledad, era lo que necesitaba hace años","E:1"]]},
+{c:"SOCIAL",t:"Tu círculo social se fue achicando con los años. Conocer gente nueva requiere más esfuerzo. ¿Qué hacés con eso?",o:[["A","Lo busco activamente, me interesa sumar gente nueva","E:5"],["B","Si surge de manera natural bienvenido, pero no lo busco","E:3"],["C","Me conformo con los vínculos que tengo, no necesito más","E:1"],["D","Lo pienso pero no termino de concretarlo","E:2"]]},
+{c:"COTIDIANO",t:"Te jubilaste o reduciste tu carga laboral. La estructura de la semana que tenías desapareció. ¿Cómo lo manejás?",o:[["A","Lleno esa estructura con actividades, salidas y gente","E:5"],["B","Disfruto la libertad pero armo alguna rutina social","E:3"],["C","Me acomodo solo, tengo proyectos y tiempo propio que aprovechar","E:2"],["D","El silencio y la calma son exactamente lo que quería","E:1"]]},
+{c:"SOCIAL",t:"Te invitan a un evento social — una cena, un cumpleaños, un encuentro de un grupo nuevo. No conocés a casi nadie. ¿Qué hacés?",o:[["A","Voy con ganas, siempre aparece algo interesante","E:5"],["B","Voy aunque me cueste, vale la pena salir de la burbuja","E:3"],["C","Evalúo si vale el esfuerzo antes de decidir","E:2"],["D","Prefiero declinar, a esta altura tengo lo que necesito","E:1"]]},
+{c:"SOCIAL",t:"Están en grupo y surge la necesidad de que alguien tome la palabra frente a otros. Nadie se anima. ¿Qué hacés?",o:[["A","Me levanto y lo hago yo","E:5"],["B","Me ofrezco si alguien me lo pide","E:4"],["C","Espero a que alguien más tome la iniciativa","E:2"],["D","No me sale, prefiero que lo haga otro","E:1"]]},
+{c:"FAMILIAR",t:"Después del divorcio o de que los hijos se fueron, te encontrás viviendo solo por primera vez en mucho tiempo. ¿Cómo lo vivís genuinamente?",o:[["A","Me cuesta, necesito contacto y busco llenarlo con planes","E:5"],["B","Hay días buenos y días difíciles, pero me voy acomodando","E:3"],["C","Lo disfruto más de lo que esperaba, tengo mi espacio","E:2"],["D","Es exactamente lo que necesitaba, me recarga estar solo","E:1"]]},
+{c:"FAMILIAR",t:"Después de años de crianza, tu hijo adulto se independizó. La relación cambió. ¿Cómo lo procesás?",o:[["A","Lo acepto con orgullo, para eso los crié","N:1"],["B","Me cuesta pero entiendo que es lo natural","N:2"],["C","Me quedo pensando si hice bien las cosas, si estuve suficiente","N:4"],["D","Me cuesta soltarlo, sigo buscando maneras de ser necesario","N:5"]]},
+{c:"LABORAL",t:"Llevás muchos años en tu trabajo y te ofrecen un retiro voluntario. No es obligatorio pero el mensaje implícito es claro. ¿Cómo lo procesás?",o:[["A","Lo evalúo con calma y tomo la decisión que más me conviene","N:1"],["B","Me genera algo de ansiedad pero lo proceso y decido","N:2"],["C","Me queda dando vueltas, siento que el piso se mueve","N:4"],["D","Me afecta profundamente, no sé quién soy sin ese lugar","N:5"]]},
+{c:"FAMILIAR",t:"Hay una situación familiar que viene sin resolverse hace tiempo. ¿Cómo lo vivís vos?",o:[["A","Lo dejo correr, si no explota solo no vale la pena forzarlo","N:1"],["B","Lo tengo presente pero no me consume","N:2"],["C","Me pesa, lo pienso más de lo que debería","N:4"],["D","Me cuesta mucho convivir con esa tensión sin resolverla","N:5"]]},
+{c:"COTIDIANO",t:"Te jubilaste o estás por hacerlo. Lo que antes te daba estructura, identidad y propósito diario ya no está. ¿Cómo lo procesás?",o:[["A","Lo vivo como una oportunidad, tengo cosas que quiero hacer","N:1"],["B","Me lleva un tiempo acomodarme pero encuentro el ritmo","N:2"],["C","Me genera más angustia de lo que esperaba","N:4"],["D","Me cuesta encontrarle sentido a los días sin esa estructura","N:5"]]},
+{c:"FAMILIAR",t:"Hay una discusión fuerte con tu hijo adolescente. Las cosas se dijeron con dureza. Después de que se calma todo, ¿cómo lo procesás internamente?",o:[["A","Lo hablo con él cuando se enfría y lo cierro","N:1"],["B","Me queda algo de malestar pero lo suelto en el día","N:2"],["C","Lo sigo pensando, me pregunto si me manejé bien","N:4"],["D","Me afecta bastante, lo sigo pensando días después","N:5"]]},
+{c:"SOCIAL",t:"Te enterás de que un grupo de amigos hizo un plan sin incluirte. No es la primera vez. ¿Cómo lo procesás?",o:[["A","Lo dejo pasar, cada uno tiene sus círculos","N:1"],["B","Lo noto pero no le doy demasiada bola","N:2"],["C","Me quedo pensando en por qué no me llamaron","N:4"],["D","Me afecta más de lo que quisiera admitir","N:5"]]},
+{c:"COTIDIANO",t:"Siempre quisiste retomar un hobby o aprender algo que postergaste por años. Ahora tenés el tiempo. ¿Qué pasa?",o:[["A","Arranco sin dudar, era lo que esperaba","C:5"],["B","Lo pienso, busco opciones y arranco en algún momento","C:4"],["C","Lo voy postergando, siempre aparece otra cosa","C:2"],["D","El tiempo pasa y no termino de concretarlo","C:1"]]},
+{c:"FINANCIERO",t:"Tenés un dinero ahorrado que costó mucho juntar. Aparece una oportunidad de usarlo en algo que querés hace tiempo pero no es urgente. ¿Qué hacés?",o:[["A","Lo reservo, prefiero tenerlo disponible por si hace falta","C:5"],["B","Evalúo bien si vale la pena antes de decidir","C:4"],["C","Lo uso, me lo gané y quiero disfrutarlo","C:2"],["D","Lo uso sin pensarlo mucho, total para eso está","C:1"]]},
+{c:"LABORAL",t:"Asumiste un compromiso importante con alguien. Apareció algo mejor para ese mismo momento. ¿Qué hacés?",o:[["A","Cumplo el compromiso, me comprometí y eso vale","C:5"],["B","Cumplo pero busco la manera de no perder lo otro","C:4"],["C","Cambio de plan, la oportunidad no espera","C:2"],["D","Cancelo sin mucho preámbulo, así son las cosas","C:1"]]},
+{c:"FAMILIAR",t:"Si tuvieras hijos adolescentes, acordaste con tu hijo una regla clara. A los días la está incumpliendo. ¿Qué hacés?",o:[["A","Lo retomo de inmediato, lo acordamos y tiene que cumplirse","C:5"],["B","Se lo recuerdo con calma, puede ser que se le pasó","C:4"],["C","Lo dejo pasar esta vez, tampoco es para tanto","C:2"],["D","Lo dejo ir, con adolescentes no vale la pena pelear por todo","C:1"]]},
+{c:"COTIDIANO",t:"Empezaste algo nuevo — un curso, un proyecto, una rutina. A las pocas semanas el entusiasmo bajó. ¿Qué pasa?",o:[["A","Sigo igual, el entusiasmo va y viene pero el compromiso queda","C:5"],["B","Bajo el ritmo pero no lo abandono","C:4"],["C","Lo voy espaciando hasta que desaparece solo","C:2"],["D","Lo dejo, si no me genera ganas no tiene sentido forzarlo","C:1"]]},
+{c:"COTIDIANO",t:"Tenés que resolver un trámite que podés hacer por app o web, pero nunca lo usaste y no sabés bien cómo funciona. ¿Qué hacés?",o:[["A","Lo intento solo, algo voy a entender","C:5"],["B","Busco un tutorial o le pregunto a alguien cómo se hace","C:4"],["C","Le pido a alguien más joven que lo haga por mí","C:2"],["D","Lo dejo para después o busco la manera de hacerlo en persona","C:1"]]},
+{c:"COTIDIANO",t:"Tu hijo o alguien cercano más joven te recomienda algo que nunca probarías solo. ¿Qué hacés?",o:[["A","Lo pruebo con apertura genuina, puede sorprenderme","O:5"],["B","Lo pruebo para darle el gusto, sin muchas expectativas","O:3"],["C","Lo guardo para después y probablemente no llegue","O:2"],["D","Le agradezco pero no es para mí, prefiero lo que ya conozco","O:1"]]},
+{c:"COTIDIANO",t:"Para hacer las compras del supermercado existe la opción de pedirlo por app y recibirlo en casa. ¿Qué preferís?",o:[["A","Lo uso, me parece práctico y me ahorra tiempo","O:5"],["B","Lo probé alguna vez pero prefiero ir en persona","O:3"],["C","Prefiero ir, me gusta elegir lo que compro yo","O:2"],["D","No lo uso, no me genera confianza y no lo veo necesario","O:1"]]},
+{c:"SOCIAL",t:"Alguien con quien casi no coincidís en nada te dice algo que tiene sentido. ¿Cómo lo procesás?",o:[["A","Lo reconozco, buen argumento es buen argumento venga de quien venga","O:5"],["B","Lo considero pero me toma tiempo aceptarlo","O:4"],["C","Lo escucho pero internamente lo pongo en duda por quién lo dice","O:2"],["D","No lo termino de tomar en serio","O:1"]]},
+{c:"COTIDIANO",t:"El mundo cambió mucho en los últimos años — la forma de relacionarse, los valores, la tecnología. ¿Cómo lo vivís?",o:[["A","Me adapto, siempre hay algo nuevo que aprender","O:5"],["B","Acepto los cambios aunque no todos me gusten","O:3"],["C","Algunos cambios los entiendo, otros directamente no los compro","O:2"],["D","Prefiero lo que conozco, el mundo de antes me resultaba más claro","O:1"]]},
+{c:"SOCIAL",t:"Estás en una reunión y el tema deriva hacia algo que no conocés y que no es de tu generación. ¿Qué hacés?",o:[["A","Me interesa, pregunto para entender","O:5"],["B","Escucho con atención aunque no aporte nada","O:3"],["C","Espero a que cambie el tema","O:2"],["D","Lo redirijo hacia algo donde me sienta más cómodo","O:1"]]}];
+
+// ── STATE ─────────────────────────────────────────────
+var S={
+  screen:"start",name:"",range:null,questions:[],answers:[],current:0,
+  results:null,
+  selectedInterests:[],
+  tierAssignments:{},
+  selectedSubs:{},
+  activeFilter:"both"
+};
+var tlSelected=null; // id of pool item being assigned
+
+// ── UTILS ─────────────────────────────────────────────
+function show(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('screen-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function getLevel(s){return s<2.0?'low':s>3.5?'high':'mid';}
+function getLvlLabel(s){return s<2.0?'bajo':s>3.5?'alto':'intermedio';}
+
+function calcResults(answers,questions){
+  var t={A:0,E:0,N:0,C:0,O:0},c={A:0,E:0,N:0,C:0,O:0};
+  answers.forEach(function(ans,i){
+    if(ans===null)return;
+    questions[i].o[ans][2].split(' ').forEach(function(s){
+      var p=s.split(':'),d=p[0],v=parseInt(p[1]);
+      if(t[d]!==undefined){t[d]+=v;c[d]++;}
+    });
+  });
+  var a={};
+  Object.keys(t).forEach(function(d){a[d]=c[d]>0?Math.round((t[d]/c[d])*10)/10:0;});
+  return a;
+}
+
+function buildVector(name,res,ints,tiers,subs){
+  var v=name+' | A:'+res.A+' E:'+res.E+' N:'+res.N+' C:'+res.C+' O:'+res.O;
+  INTERESTS.forEach(function(int){
+    if(ints.indexOf(int.id)>-1){
+      var tier=tiers[int.id]||'C';
+      var subList=(subs[int.id]||[]).map(function(s){return s.replace(/[|,]/g,'');}).join(',');
+      v+=' | '+int.name+':'+tier+(subList?':'+subList:'');
+    }
+  });
+  return v;
+}
+
+function parseVector(str){
+  var parts=str.split('|').map(function(s){return s.trim();});
+  if(parts.length<2)return null;
+  var name=parts[0];
+  var dimStr=parts[1];
+  var dimMatch=dimStr.match(/([AENCO]):(\d+\.?\d*)/g);
+  if(!dimMatch)return null;
+  var dims={};
+  dimMatch.forEach(function(m){var p=m.split(':');dims[p[0]]=parseFloat(p[1]);});
+  if(dims.A===undefined)return null;
+  var interests={};
+  for(var i=2;i<parts.length;i++){
+    var ip=parts[i].split(':');
+    if(ip.length>=2){
+      var iname=ip[0].trim();
+      var itier=ip[1].trim();
+      var isubs=ip[2]?ip[2].split(',').map(function(s){return s.trim();}):[];
+      interests[iname]={tier:itier,subs:isubs};
+    }
+  }
+  return{name:name,dims:dims,interests:interests};
+}
+
+// ── RENDER Q ──────────────────────────────────────────
+function renderQ(){
+  var q=S.questions[S.current];
+  var total=S.questions.length;
+  var pct=Math.round((S.current/total)*100);
+  document.getElementById('q-num').textContent=S.current+1;
+  document.getElementById('q-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('q-ctx').textContent=q.c;
+  document.getElementById('q-text').textContent=q.t;
+  var optsEl=document.getElementById('q-opts');
+  optsEl.innerHTML='';
+  q.o.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.className='opt'+(S.answers[S.current]===i?' sel':'');
+    btn.innerHTML='<span class="opt-l">'+opt[0]+'</span><span class="opt-t">'+opt[1]+'</span>';
+    (function(idx){
+      btn.addEventListener('click',function(){selectOpt(idx);});
+      btn.addEventListener('touchend',function(e){e.preventDefault();selectOpt(idx);});
+    })(i);
+    optsEl.appendChild(btn);
+  });
+  var dotsEl=document.getElementById('nav-dots');
+  dotsEl.innerHTML='';
+  S.questions.forEach(function(_,i){
+    var d=document.createElement('div');
+    d.className='dot'+(S.answers[i]!==null?' ans':'')+(i===S.current?' cur':'');
+    (function(idx){d.addEventListener('click',function(){S.current=idx;renderQ();});})(i);
+    dotsEl.appendChild(d);
+  });
+  var isLast=S.current===total-1;
+  var allAns=S.answers.every(function(a){return a!==null;});
+  var nb=document.getElementById('btn-next');
+  document.getElementById('finish-hint').style.display='none';
+  if(isLast){
+    nb.textContent='Ver resultados →';nb.className='btn-finish';nb.disabled=!allAns;
+    if(!allAns)document.getElementById('finish-hint').style.display='block';
+  } else {
+    nb.textContent='Siguiente →';nb.className='btn-next';nb.disabled=S.answers[S.current]===null;
+  }
+}
+
+function selectOpt(i){
+  S.answers[S.current]=i;renderQ();
+  if(S.current<S.questions.length-1)setTimeout(function(){S.current++;renderQ();},230);
+}
+
+// ── RENDER RESULTS ────────────────────────────────────
+function renderDims(containerId,res){
+  var dims=['A','E','N','C','O'];
+  var container=document.getElementById(containerId);
+  container.innerHTML='';
+  dims.forEach(function(d){
+    var info=DESC[d];
+    var score=res[d]||0;
+    var pct=Math.min((score/5)*100,100);
+    var level=getLevel(score);
+    var card=document.createElement('div');
+    card.className='dim-card';
+    card.innerHTML='<div class="dim-head"><div><span class="dim-name" style="color:'+info.color+'">'+info.label+'</span><span class="dim-badge" style="background:'+info.color+'22;color:'+info.color+'">'+getLvlLabel(score)+'</span></div><span class="dim-score">'+score+'/5</span></div><div class="bar-track"><div class="bar-fill" style="background:'+info.color+';width:'+pct+'%"></div></div><div class="dim-extremes"><span>'+info.lo+'</span><span>'+info.hi+'</span></div><div class="dim-desc">'+info.desc[level]+'<div class="dim-why">¿Por qué? '+info.why[level]+'</div></div>';
+    container.appendChild(card);
+  });
+}
+
+function showResults(){
+  var rl={"1835":"18–35 años","3649":"36–49 años","50":"50+ años"};
+  document.getElementById('res-range').textContent='Resultados · '+rl[S.range];
+  renderDims('res-dims',S.results);
+  document.getElementById('vb-name').textContent=S.name;
+  var vec='A:'+S.results.A+' E:'+S.results.E+' N:'+S.results.N+' C:'+S.results.C+' O:'+S.results.O;
+  document.getElementById('vb-vector').textContent=vec;
+  show('results');
+}
+
+// ── INTERESTS SCREEN ──────────────────────────────────
+function renderInterestsScreen(){
+  var grid=document.getElementById('interest-grid');
+  grid.innerHTML='';
+  INTERESTS.forEach(function(int){
+    var btn=document.createElement('div');
+    btn.className='int-btn'+(S.selectedInterests.indexOf(int.id)>-1?' sel':'');
+    btn.innerHTML='<div class="int-icon">'+int.icon+'</div><div class="int-name">'+int.name+'</div>';
+    btn.addEventListener('click',function(){
+      var idx=S.selectedInterests.indexOf(int.id);
+      if(idx>-1)S.selectedInterests.splice(idx,1);
+      else S.selectedInterests.push(int.id);
+      renderInterestsScreen();
+    });
+    grid.appendChild(btn);
+  });
+}
+
+// ── TIERLIST SCREEN ───────────────────────────────────
+function renderTierlist(){
+  tlSelected=null;
+  var pool=document.getElementById('tl-pool');
+  pool.innerHTML='';
+  // Items not yet assigned
+  var assigned=Object.keys(S.tierAssignments);
+  S.selectedInterests.forEach(function(id){
+    if(assigned.indexOf(id)===-1){
+      var int=INTERESTS.find(function(i){return i.id===id;});
+      if(!int)return;
+      var el=document.createElement('div');
+      el.className='tl-pool-item';
+      el.dataset.id=id;
+      el.innerHTML='<span>'+int.icon+'</span><span>'+int.name+'</span>';
+      el.addEventListener('click',function(){
+        document.querySelectorAll('.tl-pool-item').forEach(function(e){e.style.borderColor='';});
+        tlSelected=id;
+        el.style.borderColor='var(--teal)';
+      });
+      pool.appendChild(el);
+    }
+  });
+
+  var tl=document.getElementById('tierlist');
+  tl.innerHTML='';
+  TIERS.forEach(function(tier){
+    var row=document.createElement('div');
+    row.className='tl-row tl-'+tier;
+    var label=document.createElement('div');
+    label.className='tl-label';
+    label.textContent=tier;
+    var slots=document.createElement('div');
+    slots.className='tl-slots';
+    // Items assigned to this tier
+    Object.keys(S.tierAssignments).forEach(function(id){
+      if(S.tierAssignments[id]===tier){
+        var int=INTERESTS.find(function(i){return i.id===id;});
+        if(!int)return;
+        var item=document.createElement('div');
+        item.className='tl-item';
+        item.innerHTML='<span class="ti-icon">'+int.icon+'</span><span>'+int.name+'</span>';
+        item.addEventListener('click',function(){
+          // Remove from tier, back to pool
+          delete S.tierAssignments[id];
+          renderTierlist();
+        });
+        slots.appendChild(item);
+      }
+    });
+    // Click on row to assign selected
+    row.addEventListener('click',function(e){
+      if(e.target===label||e.target===row||e.target===slots){
+        if(tlSelected){
+          S.tierAssignments[tlSelected]=tier;
+          tlSelected=null;
+          renderTierlist();
+        }
+      }
+    });
+    slots.addEventListener('click',function(){
+      if(tlSelected){
+        S.tierAssignments[tlSelected]=tier;
+        tlSelected=null;
+        renderTierlist();
+      }
+    });
+    row.appendChild(label);
+    row.appendChild(slots);
+    tl.appendChild(row);
+  });
+}
+
+// ── SUBINTERESTS SCREEN ───────────────────────────────
+function renderSubs(){
+  var container=document.getElementById('subs-container');
+  container.innerHTML='';
+  S.selectedInterests.forEach(function(id){
+    var int=INTERESTS.find(function(i){return i.id===id;});
+    if(!int)return;
+    var sec=document.createElement('div');
+    sec.className='sub-section';
+    var header=document.createElement('div');
+    header.className='sub-header';
+    header.innerHTML='<span class="sub-icon">'+int.icon+'</span><span class="sub-title">'+int.name+' <span style="font-size:12px;color:var(--gray);font-weight:400">(Tier '+( S.tierAssignments[id]||'?')+')</span></span>';
+    sec.appendChild(header);
+    var chips=document.createElement('div');
+    chips.className='sub-chips';
+    int.subs.forEach(function(sub){
+      var chip=document.createElement('div');
+      var selSubs=S.selectedSubs[id]||[];
+      chip.className='chip'+(selSubs.indexOf(sub)>-1?' sel':'');
+      chip.textContent=sub;
+      chip.addEventListener('click',function(){
+        if(!S.selectedSubs[id])S.selectedSubs[id]=[];
+        var idx=S.selectedSubs[id].indexOf(sub);
+        if(idx>-1)S.selectedSubs[id].splice(idx,1);
+        else S.selectedSubs[id].push(sub);
+        chip.classList.toggle('sel');
+      });
+      chips.appendChild(chip);
+    });
+    sec.appendChild(chips);
+    container.appendChild(sec);
+  });
+}
+
+// ── FULL RESULT ───────────────────────────────────────
+function showFullResult(){
+  document.getElementById('full-name').textContent=S.name+' · Perfil completo';
+  renderDims('full-dims',S.results);
+  // Interests summary
+  var summary=document.getElementById('full-interests-summary');
+  summary.innerHTML='<div class="eyebrow" style="margin-bottom:10px">Intereses</div>';
+  TIERS.forEach(function(tier){
+    var items=S.selectedInterests.filter(function(id){return S.tierAssignments[id]===tier;});
+    if(items.length===0)return;
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;';
+    var tierLabel=document.createElement('div');
+    tierLabel.style.cssText='min-width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;';
+    var tierColors={S:'var(--ts)',A:'var(--ta)',B:'var(--tb)',C:'var(--tc)',D:'var(--td)'};
+    var tierTx={S:'#fff',A:'#fff',B:'#333',C:'#333',D:'#333'};
+    tierLabel.style.background=tierColors[tier];
+    tierLabel.style.color=tierTx[tier];
+    tierLabel.textContent=tier;
+    var chips=document.createElement('div');
+    chips.style.cssText='display:flex;flex-wrap:wrap;gap:5px;flex:1;';
+    items.forEach(function(id){
+      var int=INTERESTS.find(function(i){return i.id===id;});
+      if(!int)return;
+      var chip=document.createElement('div');
+      chip.style.cssText='background:var(--cream);border-radius:6px;padding:4px 8px;font-size:11px;font-weight:600;';
+      var subs=S.selectedSubs[id]||[];
+      chip.textContent=int.icon+' '+int.name+(subs.length?' · '+subs.slice(0,3).join(', '):'');
+      chips.appendChild(chip);
+    });
+    row.appendChild(tierLabel);row.appendChild(chips);
+    summary.appendChild(row);
+  });
+  var fullVec=buildVector(S.name,S.results,S.selectedInterests,S.tierAssignments,S.selectedSubs);
+  document.getElementById('full-vector').textContent=fullVec;
+  document.getElementById('btn-copy-full').onclick=function(){copyText(fullVec);};
+  document.getElementById('btn-wa-full').onclick=function(){
+    var txt=encodeURIComponent('🧠 Mi perfil Pally completo\n\n'+fullVec+'\n\n— Test de personalidad de Pally');
+    window.open('https://wa.me/?text='+txt,'_blank');
+  };
+  show('full-result');
+}
+
+// ── COMPAT ────────────────────────────────────────────
+function calcPersonalityCompat(dA,dB,vtype){
+  var dims=['A','E','N','C','O'];
+  var W=WEIGHTS[vtype]||WEIGHTS.general;
+  var sumW=0,sumWD=0,dimRes=[];
+  dims.forEach(function(d){
+    var diff=Math.abs((dA[d]||0)-(dB[d]||0));
+    var compat=1-(diff/4);
+    sumW+=W[d];sumWD+=W[d]*compat;
+    dimRes.push({d:d,compat:compat,w:W[d]});
+  });
+  return{score:sumWD/sumW,dims:dimRes};
+}
+
+function calcInterestsCompat(iA,iB){
+  // iA, iB are objects: {interestName: {tier, subs}}
+  var allNames={};
+  Object.keys(iA).forEach(function(k){allNames[k]=1;});
+  Object.keys(iB).forEach(function(k){allNames[k]=1;});
+  var names=Object.keys(allNames);
+  if(names.length===0)return{score:0,items:[]};
+  var total=0,items=[];
+  names.forEach(function(name){
+    var a=iA[name],b=iB[name];
+    if(!a||!b){items.push({name:name,compat:0,tierA:a?a.tier:'—',tierB:b?b.tier:'—'});total+=0;return;}
+    var tw=Math.min(TIER_WEIGHTS[a.tier]||1,TIER_WEIGHTS[b.tier]||1)/4;
+    var subsA=a.subs||[],subsB=b.subs||[];
+    var allSubs={};
+    subsA.forEach(function(s){allSubs[s]=1;});subsB.forEach(function(s){allSubs[s]=1;});
+    var totalSubs=Object.keys(allSubs).length;
+    var commonSubs=subsA.filter(function(s){return subsB.indexOf(s)>-1;}).length;
+    var subCompat=totalSubs>0?commonSubs/totalSubs:1;
+    var compat=tw*0.5+subCompat*0.5;
+    items.push({name:name,compat:compat,tierA:a.tier,tierB:b.tier,commonSubs:commonSubs,totalSubs:totalSubs});
+    total+=compat;
+  });
+  return{score:names.length>0?total/names.length:0,items:items};
+}
+
+function renderCompatResult(pA,pB,filter,vtype){
+  var pScore=0,iScore=0,finalScore=0;
+  var pRes=null,iRes=null;
+
+  if(filter!=='interests'&&pA.dims&&pB.dims){
+    pRes=calcPersonalityCompat(pA.dims,pB.dims,vtype);
+    pScore=pRes.score;
+  }
+  if(filter!=='test'&&pA.interests&&pB.interests){
+    iRes=calcInterestsCompat(pA.interests,pB.interests);
+    iScore=iRes.score;
+  }
+
+  if(filter==='both')finalScore=pScore*0.55+iScore*0.45;
+  else if(filter==='test')finalScore=pScore;
+  else finalScore=iScore;
+
+  var pct=Math.round(finalScore*100);
+  document.getElementById('compat-pct').textContent=pct+'%';
+  var lbl='';
+  if(pct>=80)lbl='Muy alta compatibilidad';
+  else if(pct>=65)lbl='Buena compatibilidad';
+  else if(pct>=50)lbl='Compatibilidad moderada';
+  else lbl='Perfiles muy distintos';
+  document.getElementById('compat-label').textContent=pA.name+' & '+pB.name+' · '+lbl;
+
+  var pSec=document.getElementById('compat-personality-section');
+  pSec.innerHTML='';
+  if(pRes){
+    var title=document.createElement('div');title.className='compat-section-title';title.textContent='Personalidad';
+    pSec.appendChild(title);
+    pRes.dims.sort(function(a,b){return b.compat-a.compat;}).forEach(function(r){
+      var info=DESC[r.d];
+      var p=Math.round(r.compat*100);
+      var div=document.createElement('div');div.className='compat-dim';
+      div.innerHTML='<span class="cd-name" style="color:'+info.color+'">'+info.label+'</span><div class="cd-bar-wrap"><div class="cd-bar" style="background:'+info.color+';width:'+p+'%"></div></div><span class="cd-pct">'+p+'%</span>';
+      pSec.appendChild(div);
+    });
+  }
+
+  var iSec=document.getElementById('compat-interests-section');
+  iSec.innerHTML='';
+  if(iRes&&iRes.items.length>0){
+    var title2=document.createElement('div');title2.className='compat-section-title';title2.textContent='Intereses';
+    iSec.appendChild(title2);
+    iRes.items.sort(function(a,b){return b.compat-a.compat;}).forEach(function(r){
+      var int=INTERESTS.find(function(i){return i.name===r.name;});
+      var icon=int?int.icon:'•';
+      var p=Math.round(r.compat*100);
+      var div=document.createElement('div');div.className='int-compat';
+      var subsInfo=r.totalSubs>0?r.commonSubs+'/'+r.totalSubs+' subintereses':'sin detalle';
+      div.innerHTML='<span class="ic-icon">'+icon+'</span><span class="ic-name">'+r.name+'</span><span class="ic-tiers">'+pA.name+': '+r.tierA+' · '+pB.name+': '+r.tierB+' · '+subsInfo+'</span><span class="ic-pct">'+p+'%</span>';
+      iSec.appendChild(div);
+    });
+  }
+
+  // Plans
+  var planSec=document.getElementById('compat-plans-section');
+  planSec.innerHTML='';
+  if(iRes){
+    var intA={},intB={};
+    iRes.items.forEach(function(r){
+      if(r.compat>0){
+        var int=INTERESTS.find(function(i){return i.name===r.name;});
+        if(int){intA[int.id]={tier:r.tierA};intB[int.id]={tier:r.tierB};}
+      }
+    });
+    var plans=suggestPlans(intA,intB,pA.dims||{},pB.dims||{});
+    if(plans.length>0){
+      var title3=document.createElement('div');title3.className='compat-section-title';title3.textContent='Planes sugeridos';
+      planSec.appendChild(title3);
+      plans.forEach(function(p){
+        var card=document.createElement('div');card.className='plan-card';
+        card.innerHTML='<div class="plan-title">'+p.icon+' '+p.title+'</div><div class="plan-reason">'+p.reason+'</div>';
+        planSec.appendChild(card);
+      });
+    }
+  }
+
+  var filterLabels={both:'test + intereses',test:'solo test',interests:'solo intereses'};
+  var vtypeLabels={general:'balance general',amistad:'amistad profunda',actividades:'actividades compartidas',social:'vida social activa'};
+  document.getElementById('compat-note').textContent='Calculado por '+filterLabels[filter]+', ponderado para '+vtypeLabels[vtype]+'.';
+  show('compat-result');
+}
+
+// ── COPY / TOAST ──────────────────────────────────────
+function showToast(msg){
+  var t=document.getElementById('toast');t.textContent=msg||'¡Copiado!';
+  t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2000);
+}
+function copyText(text){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){showToast();}).catch(function(){fb(text);});
+  }else{fb(text);}
+}
+function fb(text){
+  var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0;';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  try{document.execCommand('copy');showToast();}catch(e){}
+  document.body.removeChild(ta);
+}
+
+// ── INIT ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+
+  function startTest(range){
+    var name=document.getElementById('name-input').value.trim();
+    if(!name){document.getElementById('name-input').focus();showToast('Ingresá tu nombre primero');return;}
+    S.name=name;S.range=range;
+    S.questions=Q[range];S.answers=new Array(30).fill(null);S.current=0;
+    show('test');renderQ();
+  }
+
+  ['1835','3649','50'].forEach(function(r){
+    document.getElementById('btn-'+r).addEventListener('click',function(){startTest(r);});
+    document.getElementById('btn-'+r).addEventListener('touchend',function(e){e.preventDefault();startTest(r);});
+  });
+
+  document.getElementById('btn-back').addEventListener('click',function(){
+    if(S.current===0)show('start');else{S.current--;renderQ();}
+  });
+  document.getElementById('btn-next').addEventListener('click',function(){
+    if(S.current===S.questions.length-1){
+      S.results=calcResults(S.answers,S.questions);showResults();
+    }else{S.current++;renderQ();}
+  });
+
+  document.getElementById('btn-copy-result').addEventListener('click',function(){
+    var vec=S.name+' | A:'+S.results.A+' E:'+S.results.E+' N:'+S.results.N+' C:'+S.results.C+' O:'+S.results.O;
+    copyText(vec);
+  });
+  document.getElementById('btn-wa').addEventListener('click',function(){
+    var vec=S.name+' | A:'+S.results.A+' E:'+S.results.E+' N:'+S.results.N+' C:'+S.results.C+' O:'+S.results.O;
+    window.open('https://wa.me/?text='+encodeURIComponent('🧠 Mi perfil Pally\n\n'+vec+'\n\n— Pally Test'),'_blank');
+  });
+  document.getElementById('btn-go-interests').addEventListener('click',function(){
+    S.selectedInterests=[];S.tierAssignments={};S.selectedSubs={};
+    renderInterestsScreen();show('interests');
+  });
+  document.getElementById('btn-restart').addEventListener('click',function(){
+    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'both'};
+    show('start');
+  });
+  document.getElementById('btn-restart2').addEventListener('click',function(){
+    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'both'};
+    show('start');
+  });
+
+  document.getElementById('btn-to-tierlist').addEventListener('click',function(){
+    if(S.selectedInterests.length===0){showToast('Elegí al menos un interés');return;}
+    renderTierlist();show('tierlist');
+  });
+  document.getElementById('btn-to-subs').addEventListener('click',function(){
+    renderSubs();show('subs');
+  });
+  document.getElementById('btn-finish-interests').addEventListener('click',function(){
+    showFullResult();
+  });
+
+  // Compat
+  document.getElementById('nav-compat').addEventListener('click',function(){show('compat');});
+  document.getElementById('nav-compat').addEventListener('touchend',function(e){e.preventDefault();show('compat');});
+
+  document.querySelectorAll('.filter-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('sel');});
+      btn.classList.add('sel');
+      S.activeFilter=btn.dataset.filter;
+    });
+  });
+
+  document.getElementById('btn-calc').addEventListener('click',function(){
+    var strA=document.getElementById('input-a').value.trim();
+    var strB=document.getElementById('input-b').value.trim();
+    if(!strA||!strB){showToast('Ingresá los dos resultados');return;}
+    var pA=parseVector(strA),pB=parseVector(strB);
+    if(!pA||!pB){showToast('Formato inválido');return;}
+    var vtype=document.getElementById('vtype-select').value;
+    renderCompatResult(pA,pB,S.activeFilter,vtype);
+  });
+  document.getElementById('btn-new-compat').addEventListener('click',function(){show('compat');});
+  document.getElementById('btn-back-home').addEventListener('click',function(){show('start');});
+
+});
+})();
+</script>
+</body>
+</html>

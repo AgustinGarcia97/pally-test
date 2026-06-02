@@ -78,6 +78,39 @@ main{max-width:680px;margin:0 auto;padding:24px 14px 80px;}
 .btn-wa{background:#25D366;border:none;border-radius:7px;padding:9px;cursor:pointer;color:#fff;font-size:13px;font-weight:600;font-family:inherit;width:100%;}
 .btn-interests{background:var(--teal);border:none;border-radius:7px;padding:10px;cursor:pointer;color:#fff;font-size:13px;font-weight:700;font-family:inherit;width:100%;margin-top:10px;}
 .btn-restart{background:transparent;border:2px solid var(--light);border-radius:7px;padding:9px;cursor:pointer;color:var(--navy);font-size:12px;font-weight:600;font-family:inherit;width:100%;margin-top:8px;}
+/* MANUAL */
+.manual-row{margin-bottom:14px;}
+.manual-label{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:5px;display:flex;justify-content:space-between;align-items:center;}
+.manual-value{font-size:13px;color:var(--teal);font-weight:800;}
+.manual-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--light);outline:none;}
+.manual-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--navy);cursor:pointer;}
+.manual-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--navy);cursor:pointer;border:none;}
+.manual-hint{font-size:10px;color:var(--gray);display:flex;justify-content:space-between;margin-top:3px;}
+/* LIFESTYLE */
+.ls-vignette{background:var(--cream);border-radius:10px;padding:14px;margin-bottom:14px;border-left:3px solid var(--teal);}
+.ls-vh{font-size:11px;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;font-weight:700;margin-bottom:5px;}
+.ls-vt{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;line-height:1.3;}
+.ls-vsit{font-size:12px;color:var(--gray);font-style:italic;margin-bottom:12px;line-height:1.5;}
+.ls-subq{margin-bottom:14px;}
+.ls-subq-text{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:6px;}
+.ls-opts{display:flex;flex-direction:column;gap:5px;}
+.ls-opt{background:#fff;border:1.5px solid var(--light);border-radius:7px;padding:8px 10px;cursor:pointer;font-size:11px;color:var(--navy);transition:all .12s;text-align:left;}
+.ls-opt:hover{border-color:var(--teal);}
+.ls-opt.sel{background:var(--navy);border-color:var(--navy);color:#fff;}
+.ls-likert{display:flex;gap:6px;margin-top:6px;}
+.ls-likert-item{flex:1;background:#fff;border:1.5px solid var(--light);border-radius:6px;padding:8px 4px;cursor:pointer;text-align:center;font-size:11px;font-weight:700;color:var(--gray);transition:all .12s;}
+.ls-likert-item:hover{border-color:var(--teal);}
+.ls-likert-item.sel{background:var(--teal);border-color:var(--teal);color:#fff;}
+.ls-likert-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--gray);margin-top:3px;}
+.ls-multi{margin-bottom:14px;}
+.ls-multi-q{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.ls-multi-i{font-size:11px;color:var(--gray);margin-bottom:8px;}
+.ls-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.ls-chip{background:#fff;border:1.5px solid var(--light);border-radius:16px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--navy);cursor:pointer;transition:all .12s;}
+.ls-chip:hover{border-color:var(--teal);}
+.ls-chip.sel{background:var(--teal);border-color:var(--teal);color:#fff;}
+.ls-section-title{font-size:14px;font-weight:800;color:var(--navy);margin:18px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gold);}
+.ls-progress-mini{font-size:10px;color:var(--gray);margin-bottom:10px;}
 /* INTERESTS */
 .interest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
 .int-btn{background:var(--cream);border:2px solid var(--light);border-radius:10px;padding:14px 8px;cursor:pointer;text-align:center;transition:all .2s;}
@@ -166,6 +199,23 @@ main{max-width:680px;margin:0 auto;padding:24px 14px 80px;}
   <button class="range-btn" id="btn-3649"><div class="rl">36 – 49 años</div><div class="rd">Carrera consolidada, vínculos adultos, crianza</div></button>
   <button class="range-btn" id="btn-50"><div class="rl">50+ años</div><div class="rd">Nueva libertad, hijos grandes, redescubrimiento</div></button>
   <div class="note-box"><strong style="color:var(--navy)">30 preguntas · ~10 min.</strong> Respondé lo que harías realmente.</div>
+  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--light)">
+    <div class="eyebrow" style="margin-bottom:8px">¿Ya hiciste el test antes?</div>
+    <button class="range-btn" id="btn-manual" style="background:var(--teal);border-color:var(--teal)">
+      <div class="rl" style="color:#fff">Cargar valores manualmente</div>
+      <div class="rd" style="color:rgba(255,255,255,.75)">Ingresá tus 5 valores A, E, N, C, O sin rehacer las preguntas</div>
+    </button>
+  </div>
+</div>
+
+<!-- MANUAL VALUES -->
+<div id="screen-manual" class="screen card">
+  <div class="eyebrow">Carga manual</div>
+  <h2 class="title">Tus valores Big Five</h2>
+  <p class="subtitle">Ingresá los valores que te dieron antes. Cada uno va de 1.0 a 5.0.</p>
+  <div id="manual-sliders"></div>
+  <button class="btn-primary" id="btn-manual-continue" style="margin-top:16px">Continuar a intereses →</button>
+  <button class="btn-restart" id="btn-manual-back" style="margin-top:7px">Volver</button>
 </div>
 
 <!-- TEST -->
@@ -228,7 +278,16 @@ main{max-width:680px;margin:0 auto;padding:24px 14px 80px;}
   <h2 class="title">¿Qué dentro de cada interés?</h2>
   <p class="subtitle">Elegí lo que más te representa en cada uno.</p>
   <div id="subs-container"></div>
-  <button class="btn-primary" id="btn-finish-interests">Ver resultado completo →</button>
+  <button class="btn-primary" id="btn-finish-interests">Continuar a estilo de vida →</button>
+</div>
+
+<!-- LIFESTYLE -->
+<div id="screen-lifestyle" class="screen card">
+  <div class="eyebrow">Paso 5 · Estilo de vida</div>
+  <h2 class="title">Hablanos de vos</h2>
+  <p class="subtitle">Cómo sos en distintas situaciones. No hay respuestas correctas — cuanto más honesto seas, mejor.</p>
+  <div id="lifestyle-container"></div>
+  <button class="btn-primary" id="btn-finish-lifestyle" style="margin-top:8px">Ver resultado completo →</button>
 </div>
 
 <!-- FULL RESULT -->
@@ -251,7 +310,7 @@ main{max-width:680px;margin:0 auto;padding:24px 14px 80px;}
 <div id="screen-compat" class="screen card">
   <div class="eyebrow">Compatibilidad</div>
   <h2 class="title">¿Qué tan compatibles son?</h2>
-  <p class="compat-intro">Pegá el resultado completo de dos personas. Formato: <code style="font-size:11px">Nombre | A:2.7 E:3 N:3.7 C:2.8 O:4 | Música:S:Rock,Jazz | Gaming:A:RPG</code></p>
+  <p class="compat-intro">Pegá el resultado completo de dos personas. Incluye personalidad, intereses y estilo de vida.</p>
   <div class="person-block">
     <div class="person-title">Persona A</div>
     <input class="field-input" id="input-a" placeholder="Pegá el resultado copiado" autocomplete="off"/>
@@ -263,9 +322,10 @@ main{max-width:680px;margin:0 auto;padding:24px 14px 80px;}
   <div style="margin-bottom:10px">
     <div class="eyebrow" style="margin-bottom:8px">Filtrar por</div>
     <div class="filter-row">
-      <button class="filter-btn sel" data-filter="both">Test + Intereses</button>
-      <button class="filter-btn" data-filter="test">Solo test</button>
+      <button class="filter-btn sel" data-filter="all">Todo</button>
+      <button class="filter-btn" data-filter="test">Solo personalidad</button>
       <button class="filter-btn" data-filter="interests">Solo intereses</button>
+      <button class="filter-btn" data-filter="lifestyle">Solo lifestyle</button>
     </div>
   </div>
   <div class="eyebrow" style="margin-bottom:6px">Tipo de vínculo</div>
@@ -285,7 +345,9 @@ main{max-width:680px;margin:0 auto;padding:24px 14px 80px;}
     <div class="compat-pct" id="compat-pct">—</div>
     <div class="compat-label" id="compat-label"></div>
   </div>
+  <div id="compat-breakdown"></div>
   <div id="compat-personality-section"></div>
+  <div id="compat-lifestyle-section"></div>
   <div id="compat-interests-section"></div>
   <div id="compat-plans-section"></div>
   <div class="compat-note" id="compat-note"></div>
@@ -312,6 +374,93 @@ var INTERESTS=[
 
 var TIERS=["S","A","B","C","D"];
 var TIER_WEIGHTS={S:4,A:3,B:2,C:1,D:0.5};
+
+// ── LIFESTYLE DATA ────────────────────────────────────
+var LIFESTYLE_VIGNETTES=[
+  {id:"v1",header:"Viñeta 1 · Con gente que ya conocés",
+   situation:"Imaginate una salida a tomar algo con tu grupo de siempre — amigos cercanos, gente con la que tenés confianza.",
+   weight:"alto",
+   subs:[
+     {id:"1_1",text:"¿Cuánto hablás?",
+      opts:["Escucho más de lo que hablo, prefiero estar atento a lo que dicen","Hablo cuando tengo algo que aportar, no por hablar","Soy bastante hablador, me prendo en la mayoría de los temas","Hablo mucho, en general yo llevo la conversación"]},
+     {id:"1_2",text:"¿Con quién te enganchás?",
+      opts:["Termino la noche hablando con una o dos personas","Hablo con varios pero hay siempre uno con quien me quedo","Voy charlando con distintas personas durante la noche","Me muevo cómodo entre todos, no me quedo fijo con nadie"]},
+     {id:"1_3",text:"¿Hasta qué hora te quedás?",
+      opts:["Me voy temprano, suelo cansarme antes que el resto","Estoy un rato y después prefiero volver","Me quedo hasta que la noche se va terminando sola","Siempre soy de los últimos, me cuesta cortar"]},
+     {id:"1_4",text:"¿Te animás a proponer cosas?",
+      opts:["Espero que propongan, me sumo a lo que decidan","Doy mi opinión pero no soy el que organiza","Suelo ser de los que tiran ideas","Casi siempre termino organizando yo el plan"]}
+   ]},
+  {id:"v2",header:"Viñeta 2 · Cuando hay que organizar un plan",
+   situation:"El grupo quiere hacer algo el sábado pero nadie definió qué. Hay que coordinar lugar, hora, quiénes vienen.",
+   weight:"medio",
+   subs:[
+     {id:"2_1",text:"¿Qué rol tomás?",
+      opts:["Me adapto a lo que decidan, no quiero meterme mucho","Doy mi opinión si me preguntan pero hasta ahí","Suelo proponer opciones para que la cosa avance","Termino coordinando casi todo, ya es costumbre"]},
+     {id:"2_2",text:"¿Cómo te llevás con planes sin estructura?",
+      opts:["Necesito saber bien qué se hace y a qué hora","Prefiero algo definido pero puedo flexibilizar","Me acomodo a lo que vaya saliendo","Cuanto menos atado el plan, mejor"]},
+     {id:"2_3",text:"¿Qué hacés si el plan cambia a último momento?",
+      opts:["Me cuesta, me había hecho la cabeza con lo otro","Me adapto pero no me encanta el cambio","No me complica, sigo con lo nuevo sin problema","Me sale natural cambiar, hasta lo disfruto"]},
+     {id:"2_4",text:"¿Y si nadie toma la iniciativa?",
+      opts:["El plan se queda sin hacerse, paso","Me molesta que nadie mueva pero tampoco lo hago yo","Termino tirando algo para que la cosa no se caiga","Tomo la decisión yo y empujo al resto"]}
+   ]},
+  {id:"v3",header:"Viñeta 3 · Con gente que no conocés",
+   situation:"Llegás a un cumpleaños, una previa, un evento donde casi no conocés a nadie. Tenés que pasar las próximas horas ahí.",
+   weight:"alto",
+   subs:[
+     {id:"3_1",text:"¿Qué hacés en los primeros minutos?",
+      opts:["Me quedo cerca de la persona que conozco, sin moverme mucho","Necesito acomodarme y al final me quedo casi toda la noche con quien conozco","Necesito unos minutos para acomodarme, después me empiezo a soltar","Me acerco a algún grupo bastante pronto, no espero mucho"]},
+     {id:"3_2",text:"¿Cómo arrancás conversaciones?",
+      opts:["Prefiero que me hablen primero, me cuesta arrancar","Si alguien está cerca, charlo de a poco sin forzar","Me animo a iniciar charla aunque sea sobre algo simple","Hablo con cualquiera, no me cuesta romper el hielo"]},
+     {id:"3_3",text:"¿Cómo te sentís en esa situación?",
+      opts:["Incómodo, estoy contando las horas para irme","Algo nervioso al principio pero después me acomodo","Bien si encuentro con quién engancharme un rato","Cómodo, me gusta conocer gente nueva"]},
+     {id:"3_4",text:"¿Cuánto te dura la energía social ahí?",
+      opts:["Me agoto rápido, busco la forma de irme antes","Aguanto un rato pero después me quemo","Estoy cómodo varias horas sin problema","Podría seguir toda la noche, no me canso de eso"]}
+   ]},
+  {id:"v4",header:"Viñeta 4 · Tu semana ideal de tiempo libre",
+   situation:"Pensá en una semana cualquiera con tiempo libre disponible — cómo te imaginás la ideal.",
+   weight:"alto",
+   subs:[
+     {id:"4_1",text:"Salir vs estar en casa, ¿dónde te sentís más?",
+      opts:["Casi siempre en casa, salir me cuesta","Más en casa que afuera, salgo cuando hay algo concreto","Más afuera que en casa, me gusta tener movimiento","Casi siempre afuera, en casa me aburro rápido"]},
+     {id:"4_3",text:"¿Cuánta estructura querés en la semana?",
+      opts:["Necesito tener planeado lo que se viene","Me gusta saber qué hay pero puedo improvisar","Prefiero dejar lugar a lo que surja","Cuanto más libre la semana, mejor"]},
+     {id:"4_4",text:"¿Qué tipo de descanso te recarga?",
+      opts:["Estar solo, sin gente alrededor","Estar con poca gente cercana, algo tranquilo","Hacer planes livianos con amigos","Moverme, salir, eso es lo que me recarga"]},
+     {id:"4_5",text:"¿Qué hacés cuando un plan se cae?",
+      opts:["Me quedo en casa, ya está, la noche se cortó","Veo si puedo armar algo más chico con alguien","Llamo a alguien y trato de hacer otra cosa","Salgo igual aunque sea solo, no pierdo la noche"]}
+   ],
+   // 4_2 es escala Likert 5 por cada tipo de plan
+   likert5:{id:"4_2",text:"Cuando salís, ¿cuánto te gusta cada tipo de plan?",
+     instr:"1 = no me llama la atención, 5 = me gusta mucho",
+     items:[
+       {id:"4_2_casa",label:"Juntada en casa de alguien"},
+       {id:"4_2_tranq",label:"Salida tranquila (bar, cervecería, restaurante)"},
+       {id:"4_2_dia",label:"Plan de día (paseo, merienda, feria, parque)"},
+       {id:"4_2_noche",label:"Salida nocturna fuerte (boliche, fiesta, hasta tarde)"},
+       {id:"4_2_aire",label:"Aire libre o evento (recital, naturaleza, evento cultural)"}
+     ]}
+  }
+];
+
+// Preguntas sueltas
+var LIFESTYLE_SINGLES=[
+  {id:"s5",type:"multi",max:2,weight:"medio",text:"¿A qué hora estás más activo?",instr:"elegí hasta 2",
+   opts:["Mañana temprano","Mañana / mediodía","Tarde","Noche","Madrugada"]},
+  {id:"s6",type:"single",weight:"medio",text:"¿Con qué frecuencia salís?",
+   opts:["Casi todos los fines de semana","Una o dos veces por mes","Cuando surge algo que me llame la atención","Casi nunca, prefiero la casa"]},
+  {id:"s7",type:"likert4",weight:"medio",text:"¿Cuánto descanso necesitás entre planes sociales seguidos?",
+   opts:["Puedo encadenar planes sin problema, no me cansan","Aguanto dos o tres días seguidos antes de necesitar una pausa","Necesito un día de pausa después de cada plan intenso","Me agoto rápido, necesito varios días para recargar"]},
+  {id:"s8",type:"single",weight:"alto",text:"¿Cuánto importa el alcohol en tus salidas?",private:true,
+   opts:["Es parte del plan casi siempre","A veces sí, a veces no","Rara vez tomo","No tomo"]},
+  {id:"s9",type:"multi",max:3,weight:"bajo",text:"¿Qué llena tu semana?",instr:"elegí hasta 3",
+   opts:["Trabajo, estudio o proyectos propios","Gimnasio o entrenamiento","Deporte con otros","Hobby creativo (música, arte, escritura, etc.)","Cuidar a alguien","Vida social y salidas","Por ahora nada fijo"]},
+  {id:"s11",type:"multi",max:2,weight:"bajo",text:"¿Cómo preferís conocer gente nueva?",instr:"elegí hasta 2",
+   opts:["En salidas grupales con amigos en común","En eventos de algo que me interesa","Cuando ya tenemos algo en común para conversar","De a poco, en lugares que ya frecuento","Por internet primero, después en persona"]},
+  {id:"s12",type:"single",weight:"alto",text:"¿Fumás?",private:true,
+   opts:["No fumo, nunca","Fumé pero lo dejé","Fumo socialmente (en salidas, eventos)","Fumo tabaco regularmente","Fumo marihuana regularmente","Ambos, regularmente"]}
+];
+
+var WEIGHT_NUM={alto:3,medio:2,bajo:1};
 
 // ── WEIGHTS ───────────────────────────────────────────
 var WEIGHTS={
@@ -493,7 +642,8 @@ var S={
   selectedInterests:[],
   tierAssignments:{},
   selectedSubs:{},
-  activeFilter:"both"
+  lifestyle:{},  // {sub_id: value} para Likert; {single_id: index} para single; {multi_id: [indices]} para multi; {4_2_xxx: 1-5} para likert5
+  activeFilter:"all"
 };
 var tlSelected=null; // id of pool item being assigned
 
@@ -521,7 +671,7 @@ function calcResults(answers,questions){
   return a;
 }
 
-function buildVector(name,res,ints,tiers,subs){
+function buildVector(name,res,ints,tiers,subs,lifestyle){
   var v=name+' | A:'+res.A+' E:'+res.E+' N:'+res.N+' C:'+res.C+' O:'+res.O;
   INTERESTS.forEach(function(int){
     if(ints.indexOf(int.id)>-1){
@@ -530,6 +680,15 @@ function buildVector(name,res,ints,tiers,subs){
       v+=' | '+int.name+':'+tier+(subList?':'+subList:'');
     }
   });
+  if(lifestyle&&Object.keys(lifestyle).length>0){
+    var lsParts=[];
+    Object.keys(lifestyle).forEach(function(k){
+      var val=lifestyle[k];
+      if(Array.isArray(val))lsParts.push(k+'='+val.join(','));
+      else lsParts.push(k+'='+val);
+    });
+    v+=' | LS:'+lsParts.join(';');
+  }
   return v;
 }
 
@@ -544,16 +703,34 @@ function parseVector(str){
   dimMatch.forEach(function(m){var p=m.split(':');dims[p[0]]=parseFloat(p[1]);});
   if(dims.A===undefined)return null;
   var interests={};
+  var lifestyle={};
   for(var i=2;i<parts.length;i++){
-    var ip=parts[i].split(':');
-    if(ip.length>=2){
-      var iname=ip[0].trim();
-      var itier=ip[1].trim();
-      var isubs=ip[2]?ip[2].split(',').map(function(s){return s.trim();}):[];
-      interests[iname]={tier:itier,subs:isubs};
+    if(parts[i].indexOf('LS:')===0){
+      // Parse lifestyle
+      var lsStr=parts[i].substring(3);
+      lsStr.split(';').forEach(function(item){
+        var pp=item.split('=');
+        if(pp.length===2){
+          var key=pp[0].trim();
+          var val=pp[1].trim();
+          if(val.indexOf(',')>-1){
+            lifestyle[key]=val.split(',').map(function(n){return parseInt(n);});
+          } else {
+            lifestyle[key]=parseInt(val);
+          }
+        }
+      });
+    } else {
+      var ip=parts[i].split(':');
+      if(ip.length>=2){
+        var iname=ip[0].trim();
+        var itier=ip[1].trim();
+        var isubs=ip[2]?ip[2].split(',').map(function(s){return s.trim();}):[];
+        interests[iname]={tier:itier,subs:isubs};
+      }
     }
   }
-  return{name:name,dims:dims,interests:interests};
+  return{name:name,dims:dims,interests:interests,lifestyle:lifestyle};
 }
 
 // ── RENDER Q ──────────────────────────────────────────
@@ -788,7 +965,7 @@ function showFullResult(){
     row.appendChild(tierLabel);row.appendChild(chips);
     summary.appendChild(row);
   });
-  var fullVec=buildVector(S.name,S.results,S.selectedInterests,S.tierAssignments,S.selectedSubs);
+  var fullVec=buildVector(S.name,S.results,S.selectedInterests,S.tierAssignments,S.selectedSubs,S.lifestyle);
   document.getElementById('full-vector').textContent=fullVec;
   document.getElementById('btn-copy-full').onclick=function(){copyText(fullVec);};
   document.getElementById('btn-wa-full').onclick=function(){
@@ -838,21 +1015,34 @@ function calcInterestsCompat(iA,iB){
 }
 
 function renderCompatResult(pA,pB,filter,vtype){
-  var pScore=0,iScore=0,finalScore=0;
-  var pRes=null,iRes=null;
+  var pScore=0,iScore=0,lScore=0,finalScore=0;
+  var pRes=null,iRes=null,lRes=null;
+  var hasPersonality=pA.dims&&pB.dims&&Object.keys(pA.dims).length>0&&Object.keys(pB.dims).length>0;
+  var hasInterests=pA.interests&&pB.interests&&Object.keys(pA.interests).length>0&&Object.keys(pB.interests).length>0;
+  var hasLifestyle=pA.lifestyle&&pB.lifestyle&&Object.keys(pA.lifestyle).length>0&&Object.keys(pB.lifestyle).length>0;
 
-  if(filter!=='interests'&&pA.dims&&pB.dims){
+  if(filter!=='interests'&&filter!=='lifestyle'&&hasPersonality){
     pRes=calcPersonalityCompat(pA.dims,pB.dims,vtype);
     pScore=pRes.score;
   }
-  if(filter!=='test'&&pA.interests&&pB.interests){
+  if(filter!=='test'&&filter!=='lifestyle'&&hasInterests){
     iRes=calcInterestsCompat(pA.interests,pB.interests);
     iScore=iRes.score;
   }
+  if(filter!=='test'&&filter!=='interests'&&hasLifestyle){
+    lRes=calcLifestyleCompat(pA.lifestyle,pB.lifestyle);
+    lScore=lRes.score;
+  }
 
-  if(filter==='both')finalScore=pScore*0.55+iScore*0.45;
-  else if(filter==='test')finalScore=pScore;
-  else finalScore=iScore;
+  if(filter==='all'){
+    // Fórmula 40/30/30 — pero ajusta si falta algún componente
+    var w={p:0.40,l:0.30,i:0.30};
+    var available={p:hasPersonality?w.p:0,l:hasLifestyle?w.l:0,i:hasInterests?w.i:0};
+    var totalW=available.p+available.l+available.i;
+    if(totalW>0)finalScore=(pScore*available.p+lScore*available.l+iScore*available.i)/totalW;
+  } else if(filter==='test') finalScore=pScore;
+  else if(filter==='interests') finalScore=iScore;
+  else if(filter==='lifestyle') finalScore=lScore;
 
   var pct=Math.round(finalScore*100);
   document.getElementById('compat-pct').textContent=pct+'%';
@@ -863,10 +1053,30 @@ function renderCompatResult(pA,pB,filter,vtype){
   else lbl='Perfiles muy distintos';
   document.getElementById('compat-label').textContent=pA.name+' & '+pB.name+' · '+lbl;
 
+  // Breakdown de los 3 componentes
+  var bk=document.getElementById('compat-breakdown');
+  bk.innerHTML='';
+  if(filter==='all'){
+    var bkTitle=document.createElement('div');bkTitle.className='compat-section-title';bkTitle.textContent='Desglose por componente';
+    bk.appendChild(bkTitle);
+    var components=[
+      {label:'Personalidad',pct:hasPersonality?Math.round(pScore*100):null,w:'40%',color:'#1B3A5C'},
+      {label:'Lifestyle',pct:hasLifestyle?Math.round(lScore*100):null,w:'30%',color:'#2E7D8C'},
+      {label:'Intereses',pct:hasInterests?Math.round(iScore*100):null,w:'30%',color:'#C4972F'}
+    ];
+    components.forEach(function(c){
+      var div=document.createElement('div');div.className='compat-dim';
+      var pctStr=c.pct!==null?c.pct+'%':'—';
+      var barW=c.pct!==null?c.pct:0;
+      div.innerHTML='<span class="cd-name" style="color:'+c.color+'">'+c.label+' <span style="font-size:9px;color:var(--gray);font-weight:400">('+c.w+')</span></span><div class="cd-bar-wrap"><div class="cd-bar" style="background:'+c.color+';width:'+barW+'%"></div></div><span class="cd-pct">'+pctStr+'</span>';
+      bk.appendChild(div);
+    });
+  }
+
   var pSec=document.getElementById('compat-personality-section');
   pSec.innerHTML='';
   if(pRes){
-    var title=document.createElement('div');title.className='compat-section-title';title.textContent='Personalidad';
+    var title=document.createElement('div');title.className='compat-section-title';title.textContent='Personalidad — detalle';
     pSec.appendChild(title);
     pRes.dims.sort(function(a,b){return b.compat-a.compat;}).forEach(function(r){
       var info=DESC[r.d];
@@ -877,10 +1087,24 @@ function renderCompatResult(pA,pB,filter,vtype){
     });
   }
 
+  var lSec=document.getElementById('compat-lifestyle-section');
+  lSec.innerHTML='';
+  if(lRes&&lRes.blocks.length>0){
+    var titleL=document.createElement('div');titleL.className='compat-section-title';titleL.textContent='Lifestyle — detalle por bloque';
+    lSec.appendChild(titleL);
+    lRes.blocks.sort(function(a,b){return b.score-a.score;}).slice(0,8).forEach(function(b){
+      var p=Math.round(b.score*100);
+      var nameShort=b.name.length>50?b.name.substring(0,50)+'…':b.name;
+      var div=document.createElement('div');div.className='compat-dim';
+      div.innerHTML='<span class="cd-name" style="color:#2E7D8C">'+nameShort+'</span><div class="cd-bar-wrap"><div class="cd-bar" style="background:#2E7D8C;width:'+p+'%"></div></div><span class="cd-pct">'+p+'%</span>';
+      lSec.appendChild(div);
+    });
+  }
+
   var iSec=document.getElementById('compat-interests-section');
   iSec.innerHTML='';
   if(iRes&&iRes.items.length>0){
-    var title2=document.createElement('div');title2.className='compat-section-title';title2.textContent='Intereses';
+    var title2=document.createElement('div');title2.className='compat-section-title';title2.textContent='Intereses — detalle';
     iSec.appendChild(title2);
     iRes.items.sort(function(a,b){return b.compat-a.compat;}).forEach(function(r){
       var int=INTERESTS.find(function(i){return i.name===r.name;});
@@ -916,11 +1140,211 @@ function renderCompatResult(pA,pB,filter,vtype){
     }
   }
 
-  var filterLabels={both:'test + intereses',test:'solo test',interests:'solo intereses'};
+  var filterLabels={all:'todos los componentes',test:'solo personalidad',interests:'solo intereses',lifestyle:'solo lifestyle'};
   var vtypeLabels={general:'balance general',amistad:'amistad profunda',actividades:'actividades compartidas',social:'vida social activa'};
   document.getElementById('compat-note').textContent='Calculado por '+filterLabels[filter]+', ponderado para '+vtypeLabels[vtype]+'.';
   show('compat-result');
 }
+
+// ── MANUAL VALUES SCREEN ──────────────────────────────
+function renderManual(){
+  var container=document.getElementById('manual-sliders');
+  container.innerHTML='';
+  var dims=['A','E','N','C','O'];
+  if(!S.manualValues)S.manualValues={A:3.0,E:3.0,N:3.0,C:3.0,O:3.0};
+  dims.forEach(function(d){
+    var info=DESC[d];
+    var row=document.createElement('div');
+    row.className='manual-row';
+    row.innerHTML='<div class="manual-label"><span style="color:'+info.color+'">'+info.label+'</span><span class="manual-value" id="mv-'+d+'">'+S.manualValues[d].toFixed(1)+'</span></div>'+
+      '<input type="range" class="manual-slider" id="mslider-'+d+'" min="1" max="5" step="0.1" value="'+S.manualValues[d]+'"/>'+
+      '<div class="manual-hint"><span>'+info.lo+'</span><span>'+info.hi+'</span></div>';
+    container.appendChild(row);
+    var slider=document.getElementById('mslider-'+d);
+    slider.addEventListener('input',function(){
+      var v=parseFloat(slider.value);
+      S.manualValues[d]=v;
+      document.getElementById('mv-'+d).textContent=v.toFixed(1);
+    });
+  });
+}
+
+// ── LIFESTYLE RENDER ──────────────────────────────────
+function renderLifestyle(){
+  var container=document.getElementById('lifestyle-container');
+  container.innerHTML='';
+  // Viñetas
+  LIFESTYLE_VIGNETTES.forEach(function(vig){
+    var vEl=document.createElement('div');
+    vEl.className='ls-vignette';
+    var html='<div class="ls-vh">'+vig.header+'</div>';
+    html+='<div class="ls-vsit">'+vig.situation+'</div>';
+    vEl.innerHTML=html;
+    // Subs (Likert 4)
+    vig.subs.forEach(function(sub){
+      var sEl=document.createElement('div');
+      sEl.className='ls-subq';
+      var subHtml='<div class="ls-subq-text">'+sub.text+'</div><div class="ls-opts">';
+      sub.opts.forEach(function(opt,i){
+        var sel=S.lifestyle[sub.id]===i+1?' sel':'';
+        subHtml+='<button class="ls-opt'+sel+'" data-vsub="'+sub.id+'" data-val="'+(i+1)+'">'+opt+'</button>';
+      });
+      subHtml+='</div>';
+      sEl.innerHTML=subHtml;
+      vEl.appendChild(sEl);
+    });
+    // Likert5 si tiene
+    if(vig.likert5){
+      var lkEl=document.createElement('div');
+      lkEl.className='ls-subq';
+      lkEl.innerHTML='<div class="ls-subq-text">'+vig.likert5.text+'</div><div style="font-size:10px;color:var(--gray);margin-bottom:8px">'+vig.likert5.instr+'</div>';
+      vig.likert5.items.forEach(function(item){
+        var itEl=document.createElement('div');
+        itEl.style.marginBottom='10px';
+        var itHtml='<div style="font-size:11px;font-weight:600;color:var(--navy);margin-bottom:4px">'+item.label+'</div><div class="ls-likert">';
+        for(var n=1;n<=5;n++){
+          var sel=S.lifestyle[item.id]===n?' sel':'';
+          itHtml+='<button class="ls-likert-item'+sel+'" data-lkitem="'+item.id+'" data-val="'+n+'">'+n+'</button>';
+        }
+        itHtml+='</div><div class="ls-likert-labels"><span>1 = no</span><span>5 = sí</span></div>';
+        itEl.innerHTML=itHtml;
+        lkEl.appendChild(itEl);
+      });
+      vEl.appendChild(lkEl);
+    }
+    container.appendChild(vEl);
+  });
+
+  // Sección de preguntas sueltas
+  var sectionTitle=document.createElement('div');
+  sectionTitle.className='ls-section-title';
+  sectionTitle.textContent='Preguntas adicionales';
+  container.appendChild(sectionTitle);
+
+  LIFESTYLE_SINGLES.forEach(function(q){
+    var sEl=document.createElement('div');
+    sEl.className='ls-multi';
+    var instr=q.instr||(q.type==='single'?'elegí 1':q.type==='likert4'?'elegí 1':'');
+    var privTag=q.private?' <span style="font-size:9px;color:var(--gold);font-weight:700">🔒 PRIVADO</span>':'';
+    sEl.innerHTML='<div class="ls-multi-q">'+q.text+privTag+'</div>'+(instr?'<div class="ls-multi-i">'+instr+'</div>':'');
+
+    if(q.type==='multi'){
+      var chipsDiv=document.createElement('div');
+      chipsDiv.className='ls-chips';
+      q.opts.forEach(function(opt,i){
+        var cur=S.lifestyle[q.id]||[];
+        var sel=cur.indexOf(i)>-1?' sel':'';
+        var chip=document.createElement('button');
+        chip.className='ls-chip'+sel;
+        chip.textContent=opt;
+        chip.dataset.qid=q.id;
+        chip.dataset.idx=i;
+        chip.dataset.max=q.max;
+        chipsDiv.appendChild(chip);
+      });
+      sEl.appendChild(chipsDiv);
+    } else {
+      // single o likert4 = botones verticales
+      var optsDiv=document.createElement('div');
+      optsDiv.className='ls-opts';
+      q.opts.forEach(function(opt,i){
+        var sel=S.lifestyle[q.id]===i?' sel':'';
+        var btn=document.createElement('button');
+        btn.className='ls-opt'+sel;
+        btn.textContent=opt;
+        btn.dataset.singleq=q.id;
+        btn.dataset.idx=i;
+        optsDiv.appendChild(btn);
+      });
+      sEl.appendChild(optsDiv);
+    }
+    container.appendChild(sEl);
+  });
+
+  // Event delegation
+  container.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.classList.contains('ls-opt')){
+      if(t.dataset.vsub){
+        S.lifestyle[t.dataset.vsub]=parseInt(t.dataset.val);
+        renderLifestyle();
+      } else if(t.dataset.singleq){
+        S.lifestyle[t.dataset.singleq]=parseInt(t.dataset.idx);
+        renderLifestyle();
+      }
+    } else if(t.classList.contains('ls-likert-item')){
+      S.lifestyle[t.dataset.lkitem]=parseInt(t.dataset.val);
+      renderLifestyle();
+    } else if(t.classList.contains('ls-chip')){
+      var qid=t.dataset.qid;
+      var idx=parseInt(t.dataset.idx);
+      var max=parseInt(t.dataset.max);
+      if(!S.lifestyle[qid])S.lifestyle[qid]=[];
+      var arr=S.lifestyle[qid];
+      var pos=arr.indexOf(idx);
+      if(pos>-1){arr.splice(pos,1);}
+      else if(arr.length<max){arr.push(idx);}
+      else{showToast('Máximo '+max);return;}
+      renderLifestyle();
+    }
+  });
+}
+
+// ── LIFESTYLE COMPAT ──────────────────────────────────
+function calcLifestyleCompat(lsA,lsB){
+  if(!lsA||!lsB||Object.keys(lsA).length===0||Object.keys(lsB).length===0)return{score:0,blocks:[]};
+
+  var blocks=[];
+  // Viñetas: cada una un bloque con peso
+  LIFESTYLE_VIGNETTES.forEach(function(vig){
+    var sums=[],wmax=3; // distancia máxima en Likert 4 puntos = 3
+    vig.subs.forEach(function(sub){
+      var a=lsA[sub.id],b=lsB[sub.id];
+      if(a!==undefined&&b!==undefined){
+        var dist=Math.abs(a-b);
+        sums.push(1-(dist/wmax));
+      }
+    });
+    if(vig.likert5){
+      vig.likert5.items.forEach(function(item){
+        var a=lsA[item.id],b=lsB[item.id];
+        if(a!==undefined&&b!==undefined){
+          var dist=Math.abs(a-b);
+          sums.push(1-(dist/4)); // Likert 5 puntos = dist max 4
+        }
+      });
+    }
+    if(sums.length>0){
+      var avg=sums.reduce(function(x,y){return x+y;},0)/sums.length;
+      blocks.push({name:vig.header,score:avg,weight:WEIGHT_NUM[vig.weight]});
+    }
+  });
+
+  // Sueltas
+  LIFESTYLE_SINGLES.forEach(function(q){
+    var a=lsA[q.id],b=lsB[q.id];
+    if(a===undefined||b===undefined)return;
+    var compat=0;
+    if(q.type==='single'||q.type==='likert4'){
+      var dist=Math.abs(a-b);
+      var maxDist=q.opts.length-1;
+      compat=1-(dist/maxDist);
+    } else if(q.type==='multi'){
+      // intersección de conjuntos
+      var arrA=Array.isArray(a)?a:[a],arrB=Array.isArray(b)?b:[b];
+      var inter=arrA.filter(function(x){return arrB.indexOf(x)>-1;}).length;
+      var union=Object.keys(arrA.concat(arrB).reduce(function(o,x){o[x]=1;return o;},{})).length;
+      compat=union>0?inter/union:0;
+    }
+    blocks.push({name:q.text,score:compat,weight:WEIGHT_NUM[q.weight]});
+  });
+
+  if(blocks.length===0)return{score:0,blocks:[]};
+  var totalW=0,totalWS=0;
+  blocks.forEach(function(b){totalW+=b.weight;totalWS+=b.weight*b.score;});
+  return{score:totalWS/totalW,blocks:blocks};
+}
+
 
 // ── COPY / TOAST ──────────────────────────────────────
 function showToast(msg){
@@ -977,11 +1401,11 @@ document.addEventListener('DOMContentLoaded',function(){
     renderInterestsScreen();show('interests');
   });
   document.getElementById('btn-restart').addEventListener('click',function(){
-    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'both'};
+    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'all',lifestyle:{}};
     show('start');
   });
   document.getElementById('btn-restart2').addEventListener('click',function(){
-    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'both'};
+    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'all',lifestyle:{}};
     show('start');
   });
 
@@ -992,7 +1416,34 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('btn-to-subs').addEventListener('click',function(){
     renderSubs();show('subs');
   });
+
+  // Manual values
+  document.getElementById('btn-manual').addEventListener('click',function(){
+    var name=document.getElementById('name-input').value.trim();
+    if(!name){document.getElementById('name-input').focus();showToast('Ingresá tu nombre primero');return;}
+    S.name=name;
+    S.range='manual';
+    if(!S.manualValues)S.manualValues={A:3.0,E:3.0,N:3.0,C:3.0,O:3.0};
+    renderManual();
+    show('manual');
+  });
+  document.getElementById('btn-manual-back').addEventListener('click',function(){show('start');});
+  document.getElementById('btn-manual-continue').addEventListener('click',function(){
+    S.results={A:S.manualValues.A,E:S.manualValues.E,N:S.manualValues.N,C:S.manualValues.C,O:S.manualValues.O};
+    // redondear a 1 decimal
+    Object.keys(S.results).forEach(function(k){S.results[k]=Math.round(S.results[k]*10)/10;});
+    S.selectedInterests=[];S.tierAssignments={};S.selectedSubs={};S.lifestyle={};
+    renderInterestsScreen();
+    show('interests');
+  });
+
+  // Lifestyle
   document.getElementById('btn-finish-interests').addEventListener('click',function(){
+    S.lifestyle={};
+    renderLifestyle();
+    show('lifestyle');
+  });
+  document.getElementById('btn-finish-lifestyle').addEventListener('click',function(){
     showFullResult();
   });
 

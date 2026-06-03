@@ -1170,8 +1170,51 @@ function renderManual(){
 }
 
 // ── LIFESTYLE RENDER ──────────────────────────────────
+var lifestyleMounted=false;
+
+function updateLifestyleSelections(){
+  // Solo actualiza clases CSS según S.lifestyle, sin rehacer DOM
+  var container=document.getElementById('lifestyle-container');
+  if(!container)return;
+  // Likert 4 puntos de viñetas (data-vsub)
+  container.querySelectorAll('[data-vsub]').forEach(function(btn){
+    var id=btn.dataset.vsub;
+    var val=parseInt(btn.dataset.val);
+    if(S.lifestyle[id]===val)btn.classList.add('sel');
+    else btn.classList.remove('sel');
+  });
+  // Likert 5 puntos (data-lkitem)
+  container.querySelectorAll('[data-lkitem]').forEach(function(btn){
+    var id=btn.dataset.lkitem;
+    var val=parseInt(btn.dataset.val);
+    if(S.lifestyle[id]===val)btn.classList.add('sel');
+    else btn.classList.remove('sel');
+  });
+  // Single/likert4 sueltas (data-singleq)
+  container.querySelectorAll('[data-singleq]').forEach(function(btn){
+    var id=btn.dataset.singleq;
+    var idx=parseInt(btn.dataset.idx);
+    if(S.lifestyle[id]===idx)btn.classList.add('sel');
+    else btn.classList.remove('sel');
+  });
+  // Multi chips (data-qid)
+  container.querySelectorAll('.ls-chip').forEach(function(chip){
+    var qid=chip.dataset.qid;
+    var idx=parseInt(chip.dataset.idx);
+    var arr=S.lifestyle[qid]||[];
+    if(arr.indexOf(idx)>-1)chip.classList.add('sel');
+    else chip.classList.remove('sel');
+  });
+}
+
 function renderLifestyle(){
   var container=document.getElementById('lifestyle-container');
+  // Si ya está montado, solo actualizar selecciones (no reconstruir)
+  if(lifestyleMounted){
+    updateLifestyleSelections();
+    return;
+  }
+
   container.innerHTML='';
   // Viñetas
   LIFESTYLE_VIGNETTES.forEach(function(vig){
@@ -1261,20 +1304,20 @@ function renderLifestyle(){
     container.appendChild(sEl);
   });
 
-  // Event delegation
+  // Event delegation — UNA SOLA VEZ
   container.addEventListener('click',function(e){
     var t=e.target;
     if(t.classList.contains('ls-opt')){
       if(t.dataset.vsub){
         S.lifestyle[t.dataset.vsub]=parseInt(t.dataset.val);
-        renderLifestyle();
+        updateLifestyleSelections();
       } else if(t.dataset.singleq){
         S.lifestyle[t.dataset.singleq]=parseInt(t.dataset.idx);
-        renderLifestyle();
+        updateLifestyleSelections();
       }
     } else if(t.classList.contains('ls-likert-item')){
       S.lifestyle[t.dataset.lkitem]=parseInt(t.dataset.val);
-      renderLifestyle();
+      updateLifestyleSelections();
     } else if(t.classList.contains('ls-chip')){
       var qid=t.dataset.qid;
       var idx=parseInt(t.dataset.idx);
@@ -1285,9 +1328,11 @@ function renderLifestyle(){
       if(pos>-1){arr.splice(pos,1);}
       else if(arr.length<max){arr.push(idx);}
       else{showToast('Máximo '+max);return;}
-      renderLifestyle();
+      updateLifestyleSelections();
     }
   });
+
+  lifestyleMounted=true;
 }
 
 // ── LIFESTYLE COMPAT ──────────────────────────────────
@@ -1401,11 +1446,11 @@ document.addEventListener('DOMContentLoaded',function(){
     renderInterestsScreen();show('interests');
   });
   document.getElementById('btn-restart').addEventListener('click',function(){
-    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'all',lifestyle:{}};
+    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'all',lifestyle:{}};lifestyleMounted=false;
     show('start');
   });
   document.getElementById('btn-restart2').addEventListener('click',function(){
-    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'all',lifestyle:{}};
+    S={screen:'start',name:'',range:null,questions:[],answers:[],current:0,results:null,selectedInterests:[],tierAssignments:{},selectedSubs:{},activeFilter:'all',lifestyle:{}};lifestyleMounted=false;
     show('start');
   });
 
@@ -1440,6 +1485,7 @@ document.addEventListener('DOMContentLoaded',function(){
   // Lifestyle
   document.getElementById('btn-finish-interests').addEventListener('click',function(){
     S.lifestyle={};
+    lifestyleMounted=false;
     renderLifestyle();
     show('lifestyle');
   });
